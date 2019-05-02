@@ -1,17 +1,17 @@
 <template>
   <div class="home">
-    <hello-world></hello-world>
+    1 - Lorem ipsum dolor sit amet consectetur adipisicing elit. At dignissimos reprehenderit fuga voluptatibus dolores magni voluptate aspernatur, repellat ipsum. Itaque cupiditate repudiandae illum rerum assumenda temporibus recusandae. Excepturi, consequuntur labore.
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
   name: 'home',
-  components: {
-    HelloWorld
-  }
+  mounted() {
+    this.$store.dispatch('template/setTitle', {
+      title: 'Inicio',
+    });
+  },
 }
 </script>
+
