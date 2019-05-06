@@ -16,4 +16,13 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+<!-- -->
+<style lang="scss">
+  .header {
+    background-color: #ccc;
+    h1 {
+      background-color: #00ff00;
+    }
+  }
+</style> 
 
