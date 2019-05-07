@@ -1,8 +1,8 @@
 <template>
   <main class="nav">
     <nav>
-      <router-link to="/">Inicio</router-link>
-      | <router-link to="/gestionar-filminas">Gestionar Filminas</router-link>
+      <router-link to="/">Inicio</router-link>|
+      <router-link to="/gestionar-filminas">Gestionar Filminas</router-link>
     </nav>
     <router-view/>
   </main>
@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: "TheFooter"
+  name: 'TheFooter',
 };
 </script>
 

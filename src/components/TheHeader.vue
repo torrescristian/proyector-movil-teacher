@@ -1,7 +1,7 @@
 <template>
-  <div class="header">
+  <v-toolbar dark class="grey darken-3">
     <h1>{{ title }}</h1>
-  </div>
+  </v-toolbar>
 </template>
 
 <script>
@@ -17,12 +17,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <!-- -->
-<style lang="scss">
-  .header {
-    background-color: #ccc;
-    h1 {
-      background-color: #00ff00;
-    }
-  }
-</style> 
+<style lang="scss"></style> 
 
