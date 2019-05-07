@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
-    1 - Lorem ipsum dolor sit amet consectetur adipisicing elit. At dignissimos reprehenderit fuga voluptatibus dolores magni voluptate aspernatur, repellat ipsum. Itaque cupiditate repudiandae illum rerum assumenda temporibus recusandae. Excepturi, consequuntur labore.
-  </div>
+  <div
+    class="home"
+  >1 - Lorem ipsum dolor sit amet consectetur adipisicing elit. At dignissimos reprehenderit fuga voluptatibus dolores magni voluptate aspernatur, repellat ipsum. Itaque cupiditate repudiandae illum rerum assumenda temporibus recusandae. Excepturi, consequuntur labore.</div>
 </template>
 
 <script>
@@ -12,6 +12,6 @@ export default {
       title: 'Inicio',
     });
   },
-}
+};
 </script>
 

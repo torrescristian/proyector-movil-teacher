@@ -1,17 +1,8 @@
 <template>
-  <v-card height="200px">
-    <v-bottom-nav :active.sync="bottomNav" :color="color" :value="true" absolute>
-      <v-btn>
-        <span>Filminas</span>
-        <v-icon>slideshow</v-icon>
-      </v-btn>
-
-      <v-btn>
-        <span>Compartir</span>
-        <v-icon>share</v-icon>
-      </v-btn>
-    </v-bottom-nav>
-  </v-card>
+  <v-footer class="pa-3" fixed>
+    <v-spacer></v-spacer>
+    <div>Proyector Móvil &copy; {{ new Date().getFullYear() }}</div>
+  </v-footer>
 </template>
 
 <script>
