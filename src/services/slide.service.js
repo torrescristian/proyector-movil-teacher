@@ -1,3 +1,4 @@
+import axios from 'axios';
 import dbService from './db.service';
 import uploadService from './upload.service';
 
@@ -12,11 +13,19 @@ async function uploadSlide(event) {
   return uploadServiceResponse.data.filename;
 }
 
+async function removeSlides(oldValues, newValues) {
+  const difference = oldValues.filter((x) => !newValues.includes(x));
+  const deletePromises = difference.map((slide) => {
+    return axios.delete(`/api/slide/${slide.image}`);
+  });
+  await Promise.all(deletePromises);
+}
+
 export default {
   async insertSlide(event) {
     const filename = await uploadSlide(event);
     dbService.setDbName('slides');
-    dbService.add({
+    return dbService.add({
       title: '',
       description: '',
       image: filename,
@@ -26,7 +35,8 @@ export default {
     dbService.setDbName('slides');
     return dbService.json();
   },
-  replaceAll(newValues) {
+  async replaceAll({ oldValues, newValues }) {
+    await removeSlides(oldValues, newValues);
     dbService.setDbName('slides');
     dbService.clear();
     for (let key = 0; key < newValues.length; key++) {

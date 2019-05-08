@@ -8,11 +8,12 @@
 export default {
   name: 'DeleteItem',
   props: {
-    id: String,
+    id: Number,
   },
   methods: {
     deleteItem() {
-      console.log(this.$props.id);
+      const key = this.$props.id;
+      this.$store.dispatch('manageSlides/delete', { key });
     },
   },
 };

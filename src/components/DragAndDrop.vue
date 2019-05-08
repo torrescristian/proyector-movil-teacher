@@ -1,7 +1,7 @@
 
 <template>
   <draggable v-model="slides" group="image">
-    <template v-for="slide in slides">
+    <template v-for="(slide, index) in slides">
       <v-list-tile :key="slide.image" avatar>
         <v-list-tile-avatar>
           <img :src="'/api/slide/' + slide.image">
@@ -11,7 +11,7 @@
           <v-list-tile-sub-title v-html="slide.description"></v-list-tile-sub-title>
         </v-list-tile-content>
         <v-spacer></v-spacer>
-        <delete-item :id="slide.image"></delete-item>
+        <delete-item :id="index"></delete-item>
       </v-list-tile>
     </template>
   </draggable>
@@ -24,8 +24,15 @@ import DeleteItem from './DeleteItem.vue';
 export default {
   name: 'DragAndDrop',
   computed: {
-    slides() {
-      return this.$store.getters['manageSlides/slides'];
+    slides: {
+      get() {
+        return this.$store.getters['manageSlides/get'];
+      },
+      set(newValue) {
+        this.$store.dispatch('manageSlides/set', {
+          slides: newValue,
+        });
+      },
     },
   },
   async mounted() {

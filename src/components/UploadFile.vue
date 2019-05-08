@@ -10,7 +10,8 @@ import slideService from '../services/slide.service.js';
 export default {
   methods: {
     async uploadFile(event) {
-      slideService.insertSlide(event);
+      await slideService.insertSlide(event);
+      await this.$store.dispatch('manageSlides/pull');
     },
   },
 };
