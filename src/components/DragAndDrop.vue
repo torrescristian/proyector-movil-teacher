@@ -18,21 +18,18 @@
 </template>
 
 <script>
-import slideService from '../services/slide.service';
 import draggable from 'vuedraggable';
 import DeleteItem from './DeleteItem.vue';
 
 export default {
   name: 'DragAndDrop',
-  data() {
-    return {
-      slides: [],
-    };
+  computed: {
+    slides() {
+      return this.$store.getters['manageSlides/slides'];
+    },
   },
-  mounted() {
-    slideService.getSlides().then((res) => {
-      this.slides = Object.values(res);
-    });
+  async mounted() {
+    await this.$store.dispatch('manageSlides/pull');
   },
   components: {
     draggable,
