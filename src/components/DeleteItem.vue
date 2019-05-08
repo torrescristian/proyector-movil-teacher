@@ -8,7 +8,7 @@
 export default {
   name: 'DeleteItem',
   props: {
-    id: Number,
+    id: String,
   },
   methods: {
     deleteItem() {

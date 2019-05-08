@@ -23,18 +23,6 @@ import DragAndDrop from './DragAndDrop.vue';
 
 export default {
   name: 'SlideList',
-  data() {
-    return {
-      items: [
-        {
-          id: 1,
-          title: 'Titulo',
-          description: 'Descripcion',
-          image: '',
-        },
-      ],
-    };
-  },
   components: {
     UploadFile,
     DragAndDrop,

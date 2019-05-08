@@ -2,7 +2,7 @@
 <template>
   <draggable v-model="slides" group="image">
     <template v-for="slide in slides">
-      <v-list-tile :key="slide.title" avatar>
+      <v-list-tile :key="slide.image" avatar>
         <v-list-tile-avatar>
           <img :src="'/api/slide/' + slide.image">
         </v-list-tile-avatar>
@@ -11,7 +11,7 @@
           <v-list-tile-sub-title v-html="slide.description"></v-list-tile-sub-title>
         </v-list-tile-content>
         <v-spacer></v-spacer>
-        <delete-item :id="item.id"></delete-item>
+        <delete-item :id="slide.image"></delete-item>
       </v-list-tile>
     </template>
   </draggable>
