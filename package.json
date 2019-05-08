@@ -9,9 +9,11 @@
   "dependencies": {
     "axios": "^0.18.0",
     "core-js": "^2.6.5",
+    "idb-kv-store": "^4.4.0",
     "socket.io-client": "^2.2.0",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
+    "vuedraggable": "^2.20.0",
     "vuetify": "^1.5.5",
     "vuex": "^3.0.1"
   },

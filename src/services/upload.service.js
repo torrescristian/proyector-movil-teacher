@@ -1,9 +1,12 @@
+import axios from 'axios';
+
 export default {
-  uploadFile(path, file) {
-    return axios.post(path, file, {
+  uploadFile(path, formData) {
+    return axios.post(path, formData, {
       headers: {
+        Accept: 'application/json',
         'Content-Type': 'multipart/form-data',
-        Authorization: localStorage.get('token'),
+        // Authorization: localStorage.get('token'),
       },
     });
   },
