@@ -34,7 +34,11 @@ export default {
       const slides = await slideService.getSlides();
       commit('pull', { slides: Object.values(slides) });
     },
-    delete({ commit }, payload) {
+    async delete({ commit, getters }, payload) {
+      const slide = getters.get[payload.key];
+      const slides = await slideService.getSlides();
+      const key = Object.keys(slides)[payload.key];
+      await slideService.remove(key, slide);
       commit('delete', payload);
     },
     async flush({ getters, dispatch }) {
@@ -42,7 +46,7 @@ export default {
         oldValues: getters.getOriginalSlides,
         newValues: getters.get,
       });
-      dispatch('pull');
+      await dispatch('pull');
     },
   },
 };

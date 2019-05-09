@@ -30,4 +30,8 @@ export default {
     this.create();
     this.store.clear();
   },
+  remove(key) {
+    this.create();
+    this.store.remove(key);
+  }
 };

@@ -16,7 +16,7 @@ async function uploadSlide(event) {
 async function removeSlides(oldValues, newValues) {
   const difference = oldValues.filter((x) => !newValues.includes(x));
   const deletePromises = difference.map((slide) => {
-    return axios.delete(`/api/slide/${slide.image}`);
+    return axios.delete(`/api/teacher/slide/${slide.image}`);
   });
   await Promise.all(deletePromises);
 }
@@ -43,5 +43,13 @@ export default {
       const value = newValues[key];
       dbService.set(key, value);
     }
+  },
+  async remove(key, slide) {
+    dbService.setDbName('slides');
+    console.log(key, slide);
+    await dbService.remove(Number(key));
+    try {
+      await axios.delete(`/api/teacher/slide/${slide.image}`);
+    } catch (err) {}
   },
 };

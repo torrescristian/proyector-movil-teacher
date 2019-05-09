@@ -11,9 +11,9 @@ export default {
     id: Number,
   },
   methods: {
-    deleteItem() {
+    async deleteItem() {
       const key = this.$props.id;
-      this.$store.dispatch('manageSlides/delete', { key });
+      await this.$store.dispatch('manageSlides/delete', { key });
     },
   },
 };
