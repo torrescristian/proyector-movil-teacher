@@ -32,6 +32,6 @@ export default {
   },
   remove(key) {
     this.create();
-    this.store.remove(key);
+    return this.store.remove(key);
   }
 };

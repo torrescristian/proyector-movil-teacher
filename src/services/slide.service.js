@@ -13,40 +13,38 @@ async function uploadSlide(event) {
   return uploadServiceResponse.data.filename;
 }
 
-async function removeSlides(oldValues, newValues) {
-  const difference = oldValues.filter((x) => !newValues.includes(x));
-  const deletePromises = difference.map((slide) => {
-    return axios.delete(`/api/teacher/slide/${slide.image}`);
-  });
-  await Promise.all(deletePromises);
-}
-
 export default {
+  async set(key, value) {
+    dbService.setDbName('slides');
+    await dbService.set(key, value);
+  },
   async insertSlide(event) {
     const filename = await uploadSlide(event);
     dbService.setDbName('slides');
-    return dbService.add({
+    return dbService.set(filename, {
       title: '',
       description: '',
       image: filename,
     });
   },
+  get(key) {
+    dbService.setDbName('slides');
+    return dbService.get(key);
+  },
   getSlides() {
     dbService.setDbName('slides');
     return dbService.json();
   },
-  async replaceAll({ oldValues, newValues }) {
-    await removeSlides(oldValues, newValues);
+  async replaceAll(newValues) {
     dbService.setDbName('slides');
     dbService.clear();
-    for (let key = 0; key < newValues.length; key++) {
-      const value = newValues[key];
-      dbService.set(key, value);
-    }
+    newValues.forEach((slide) => {
+      dbService.set(slide.image, slide);
+    });
   },
-  async remove(key, slide) {
+  async remove(slide) {
     dbService.setDbName('slides');
-    await dbService.remove(Number(key));
+    await dbService.remove(slide.image);
     try {
       await axios.delete(`/api/teacher/slide/${slide.image}`);
     } catch (err) {}

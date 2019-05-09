@@ -11,7 +11,7 @@
           <v-list-tile-sub-title v-html="slide.description"></v-list-tile-sub-title>
         </v-list-tile-content>
         <v-spacer></v-spacer>
-        <delete-item :id="index"></delete-item>
+        <delete-item :slide="slide"></delete-item>
       </v-list-tile>
     </template>
   </draggable>

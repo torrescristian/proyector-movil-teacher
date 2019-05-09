@@ -1,20 +1,15 @@
+import _ from 'lodash';
 import slideService from '../../services/slide.service';
 
 export default {
   namespaced: true,
   state: {
-    originalSlides: [],
     slides: [],
-    activeSlide: {
-      image: 'undefined.gif',
-    },
+    activeSlide: {},
   },
   getters: {
     slides(state) {
       return state.slides;
-    },
-    originalSlides(state) {
-      return state.originalSlides;
     },
     activeSlide(state) {
       return state.activeSlide;
@@ -25,17 +20,10 @@ export default {
       state.slides = slides;
     },
     setActiveSlide(state, { slide }) {
-      state.activeSlide = slide;
+      state.activeSlide = _.cloneDeep(slide);
     },
     pull(state, { slides }) {
       state.slides = slides;
-      state.originalSlides = slides;
-      if (state.slides.length > 0) {
-        state.activeSlide = slides[0];
-      }
-    },
-    delete(state, { key }) {
-      state.slides.splice(key, 1);
       if (state.slides.length > 0) {
         state.activeSlide = slides[0];
       }
@@ -48,22 +36,21 @@ export default {
     setActiveSlide({ commit }, payload) {
       commit('setActiveSlide', payload);
     },
-    async pull({ commit }) {
+    async pull({ commit, getters }) {
+      const key = getters.activeSlide.image;
+      const value = getters.activeSlide;
+      if (key && (await slideService.get(key))) {
+        await slideService.set(key, value);
+      }
       const slides = await slideService.getSlides();
       commit('pull', { slides: Object.values(slides) });
     },
-    async delete({ commit, getters }, payload) {
-      const slide = getters.slides[payload.key];
-      const slides = await slideService.getSlides();
-      const key = Object.keys(slides)[payload.key];
-      await slideService.remove(key, slide);
-      commit('delete', payload);
+    async delete({ dispatch }, { slide }) {
+      await slideService.remove(slide);
+      await dispatch('pull');
     },
     async flush({ getters, dispatch }) {
-      await slideService.replaceAll({
-        oldValues: getters.originalSlides,
-        newValues: getters.slides,
-      });
+      await slideService.replaceAll(getters.slides);
       await dispatch('pull');
     },
   },

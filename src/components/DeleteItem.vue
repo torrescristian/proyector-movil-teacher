@@ -8,12 +8,12 @@
 export default {
   name: 'DeleteItem',
   props: {
-    id: Number,
+    slide: Object,
   },
   methods: {
     async deleteItem() {
-      const key = this.$props.id;
-      await this.$store.dispatch('manageSlides/delete', { key });
+      const slide = this.$props.slide;
+      await this.$store.dispatch('manageSlides/delete', { slide });
     },
   },
 };
