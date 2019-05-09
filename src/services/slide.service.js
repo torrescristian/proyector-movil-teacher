@@ -46,7 +46,6 @@ export default {
   },
   async remove(key, slide) {
     dbService.setDbName('slides');
-    console.log(key, slide);
     await dbService.remove(Number(key));
     try {
       await axios.delete(`/api/teacher/slide/${slide.image}`);

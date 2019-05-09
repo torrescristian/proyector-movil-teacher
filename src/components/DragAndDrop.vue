@@ -2,7 +2,7 @@
 <template>
   <draggable v-model="slides" group="image">
     <template v-for="(slide, index) in slides">
-      <v-list-tile :key="slide.image" avatar>
+      <v-list-tile :key="index" avatar @click="handleClickActiveSlide(slide)">
         <v-list-tile-avatar>
           <img :src="'/api/slide/' + slide.image">
         </v-list-tile-avatar>
@@ -26,7 +26,7 @@ export default {
   computed: {
     slides: {
       get() {
-        return this.$store.getters['manageSlides/get'];
+        return this.$store.getters['manageSlides/slides'];
       },
       set(newValue) {
         this.$store.dispatch('manageSlides/set', {
@@ -37,6 +37,13 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch('manageSlides/pull');
+  },
+  methods: {
+    handleClickActiveSlide(slide) {
+      this.$store.dispatch('manageSlides/setActiveSlide', {
+        slide,
+      });
+    }
   },
   components: {
     draggable,
