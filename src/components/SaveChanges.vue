@@ -7,7 +7,7 @@ export default {
   name: 'SaveChanges',
   methods: {
     async handleButton() {
-      await this.$store.dispatch('manageSlides/flush');
+      await this.$store.dispatch('manageSlides/overrideActiveSlide');
     },
   },
 };

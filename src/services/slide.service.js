@@ -25,6 +25,7 @@ export default {
       title: '',
       description: '',
       image: filename,
+      order: Number(filename.split('_')[0]),
     });
   },
   get(key) {
@@ -37,10 +38,17 @@ export default {
   },
   async replaceAll(newValues) {
     dbService.setDbName('slides');
-    dbService.clear();
-    newValues.forEach((slide) => {
-      dbService.set(slide.image, slide);
+    await dbService.clear();
+    const promises = newValues.map((slide, order) => {
+      const { title, description, image } = slide;
+      return dbService.set(image, {
+        title,
+        description,
+        image,
+        order,
+      });
     });
+    await Promise.all(promises);
   },
   async remove(slide) {
     dbService.setDbName('slides');

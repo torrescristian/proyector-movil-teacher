@@ -25,7 +25,7 @@ export default {
     pull(state, { slides }) {
       state.slides = slides;
       if (state.slides.length > 0) {
-        state.activeSlide = slides[0];
+        state.activeSlide = _.cloneDeep(slides[0]);
       }
     },
   },
@@ -36,14 +36,25 @@ export default {
     setActiveSlide({ commit }, payload) {
       commit('setActiveSlide', payload);
     },
-    async pull({ commit, getters }) {
-      const key = getters.activeSlide.image;
-      const value = getters.activeSlide;
-      if (key && (await slideService.get(key))) {
-        await slideService.set(key, value);
+    async overrideActiveSlide({ getters, dispatch }) {
+      const { title, description, image } = getters.activeSlide;
+      const [slide] = getters.slides.filter((s) => s.image === image);
+      if (image && (await slideService.get(image))) {
+        await slideService.set(image, {
+          title,
+          description,
+          image,
+          order: slide.order,
+        });
       }
+      dispatch('pull');
+    },
+    async pull({ commit }) {
       const slides = await slideService.getSlides();
-      commit('pull', { slides: Object.values(slides) });
+      const sortedSlides = Object.values(slides).sort((a, b) => {
+        return a.order > b.order ? 1 : -1;
+      });
+      commit('pull', { slides: sortedSlides });
     },
     async delete({ dispatch }, { slide }) {
       await slideService.remove(slide);

@@ -35,8 +35,13 @@ export default {
         return _.cloneDeep(this.$store.getters['manageSlides/activeSlide']);
       },
     },
+    slides: {
+      get() {
+        return this.$store.getters['manageSlides/slides'];
+      },
+    },
     imgPath() {
-      return this.slide.image
+      return this.slide.image && this.slides.length
         ? '/api/slide/' + this.slide.image
         : 'default.gif';
     },
@@ -45,23 +50,23 @@ export default {
     SaveChanges,
   },
   methods: {
-    setTitle(event) {
+    async setTitle(event) {
       const slide = {
         title: event.target.value,
         description: this.slide.description,
         image: this.slide.image,
       };
-      this.$store.dispatch('manageSlides/setActiveSlide', {
+      await this.$store.dispatch('manageSlides/setActiveSlide', {
         slide,
       });
     },
-    setDescription(event) {
+    async setDescription(event) {
       const slide = {
         title: this.slide.title,
         description: event.target.value,
         image: this.slide.image,
       };
-      this.$store.dispatch('manageSlides/setActiveSlide', {
+      await this.$store.dispatch('manageSlides/setActiveSlide', {
         slide,
       });
     },
