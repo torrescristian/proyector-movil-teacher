@@ -1,8 +1,35 @@
 <template>
-  <v-footer class="pa-3" fixed>
-    <v-spacer></v-spacer>
-    <div>Proyector Móvil &copy; {{ new Date().getFullYear() }}</div>
-  </v-footer>
+  <v-card>
+    <v-bottom-nav
+      :active.sync="bottomNav"
+      :color="color"
+      :value="true"
+      absolute
+      dark
+      shift
+      id="v-card"
+    >
+      <v-btn dark @click="redirect('/')">
+        <span>Reproducir Filminas</span>
+        <v-icon>ondemand_video</v-icon>
+      </v-btn>
+
+      <v-btn dark @click="redirect('/gestionar-filminas')">
+        <span>Gestionar Filminas</span>
+        <v-icon>settings</v-icon>
+      </v-btn>
+
+      <v-btn dark @click="redirect('/importar-exportar-proyecto')">
+        <span>Importar / Exportar Proyecto</span>
+        <v-icon>move_to_inbox</v-icon>
+      </v-btn>
+
+      <v-btn dark @click="redirect('/analitica')">
+        <span>Analítica</span>
+        <v-icon>timeline</v-icon>
+      </v-btn>
+    </v-bottom-nav>
+  </v-card>
 </template>
 
 <script>
@@ -13,19 +40,30 @@ export default {
       bottomNav: 0,
     };
   },
-
   computed: {
     color() {
       switch (this.bottomNav) {
         case 0:
-          return 'indigo';
+          return 'blue-grey';
         case 1:
           return 'teal';
+        case 2:
+          return 'brown';
+        case 3:
+          return 'indigo';
       }
+    },
+  },
+  methods: {
+    redirect(page) {
+      this.$router.push(page);
     },
   },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
+<style lang="scss" scoped>
+#v-card {
+  position: fixed;
+}
+</style>
