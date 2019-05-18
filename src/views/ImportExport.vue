@@ -3,7 +3,7 @@
     <div class="col">
       <p>Exportar el proyecto para guardar los cambios, trabajar en otro proyecto y volver a usarlo cuando se necesite</p>
       <div class="col__actions">
-        <v-btn color="success">Exportar</v-btn>
+        <export-btn></export-btn>
       </div>
     </div>
     <div class="col">
@@ -13,19 +13,26 @@
         <span class="col__text--highlighted">exportarlo</span> si desea seguir usándolo en futuras ocasiones.
       </p>
       <div class="col__actions">
-        <v-btn color="warning">Importar</v-btn>
+        <import-btn></import-btn>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import ExportBtn from '../components/import-export/ExportBtn.vue';
+import ImportBtn from '../components/import-export/ImportBtn.vue';
+
 export default {
   name: 'ImportView',
   mounted() {
     this.$store.dispatch('template/setTitle', {
       title: 'Importar / Exportar Proyecto',
     });
+  },
+  components: {
+    ExportBtn,
+    ImportBtn,
   },
 };
 </script>

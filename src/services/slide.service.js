@@ -15,12 +15,12 @@ async function uploadSlide(event) {
 
 export default {
   async set(key, value) {
-    dbService.setDbName('slides');
+    dbService.setDbNameSync('slides');
     await dbService.set(key, value);
   },
   async insertSlide(event) {
     const filename = await uploadSlide(event);
-    dbService.setDbName('slides');
+    dbService.setDbNameSync('slides');
     return dbService.set(filename, {
       title: '',
       description: '',
@@ -29,15 +29,15 @@ export default {
     });
   },
   get(key) {
-    dbService.setDbName('slides');
+    dbService.setDbNameSync('slides');
     return dbService.get(key);
   },
   getSlides() {
-    dbService.setDbName('slides');
+    dbService.setDbNameSync('slides');
     return dbService.json();
   },
   async replaceAll(newValues) {
-    dbService.setDbName('slides');
+    dbService.setDbNameSync('slides');
     await dbService.clear();
     const promises = newValues.map((slide, order) => {
       const { title, description, image } = slide;
@@ -51,7 +51,7 @@ export default {
     await Promise.all(promises);
   },
   async remove(slide) {
-    dbService.setDbName('slides');
+    dbService.setDbNameSync('slides');
     await dbService.remove(slide.image);
     try {
       await axios.delete(`/api/teacher/slide/${slide.image}`);

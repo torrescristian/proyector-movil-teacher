@@ -3,7 +3,7 @@ import idbKvStore from 'idb-kv-store';
 export default {
   dbName: '',
   store: null,
-  setDbName(dbName) {
+  setDbNameSync(dbName) {
     this.dbName = dbName;
   },
   create() {
