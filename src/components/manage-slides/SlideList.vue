@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import uploadService from '../services/upload.service';
+import uploadService from '../../services/upload.service';
 import UploadFile from './UploadFile.vue';
 import DragAndDrop from './DragAndDrop.vue';
 

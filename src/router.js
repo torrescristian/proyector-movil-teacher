@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
-import ImportView from './views/ImportView.vue';
+import ImportExport from './views/ImportExport.vue';
 import AnalyticsView from './views/AnalyticsView.vue';
 
 Vue.use(Router);
@@ -23,9 +23,9 @@ export default new Router({
     },
     {
       path: '/importar-exportar-proyecto',
-      name: 'import-view',
+      name: 'import-export',
       component: () =>
-        import(/* webpackChunkName: "import-view" */ './views/ImportView.vue'),
+        import(/* webpackChunkName: "import-export" */ './views/ImportExport.vue'),
     },
     {
       path: '/analitica',

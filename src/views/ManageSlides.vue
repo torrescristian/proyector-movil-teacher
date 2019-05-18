@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import SlideList from '../components/SlideList.vue';
-import SlideDisplay from '../components/SlideDisplay.vue';
+import SlideList from '../components/manage-slides/SlideList.vue';
+import SlideDisplay from '../components/manage-slides/SlideDisplay.vue';
 
 export default {
   name: 'manageSlides',
