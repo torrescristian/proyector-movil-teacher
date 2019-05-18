@@ -1,7 +1,25 @@
 <template>
-  <v-toolbar dark class="grey darken-3">
+  <nav class="nav">
     <h1>{{ title }}</h1>
-  </v-toolbar>
+    <div class="nav__router">
+      <router-link to="/" class="nav__link">
+        <v-icon class="nav__icon">ondemand_video</v-icon>
+        <span class="nav__text"> Reproducir Filminas</span>
+      </router-link>
+      <router-link to="/gestionar-filminas" class="nav__link">
+        <v-icon class="nav__icon">settings</v-icon>
+        <span class="nav__text"> Gestionar Filminas</span>
+      </router-link>
+      <router-link to="/importar-exportar-proyecto" class="nav__link">
+        <v-icon class="nav__icon">move_to_inbox</v-icon>
+        <span class="nav__text"> Importar / Exportar Proyecto</span>
+      </router-link>
+      <router-link to="/analitica" class="nav__link">
+        <v-icon class="nav__icon">timeline</v-icon>
+        <span class="nav__text"> Analítica</span>
+      </router-link>
+    </div>
+  </nav>
 </template>
 
 <script>
@@ -15,7 +33,29 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<!-- -->
-<style lang="scss"></style> 
-
+<style lang="scss" scope>
+.nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  &__router {
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+  }
+  &__link {
+    padding: 0 2rem;
+    text-decoration: none;
+    color: gray;
+  }
+}
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .nav__link {
+    padding: 1rem;
+  }
+  .nav__text {
+    display: none;
+  }
+}
+</style> 
