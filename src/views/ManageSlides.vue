@@ -1,17 +1,12 @@
 <template>
-  <div>
-    <v-container grid-list-md>
-      <v-layout row wrap>
-        <v-flex md2></v-flex>
-        <v-flex md6>
-          <slide-display></slide-display>
-        </v-flex>
-        <v-flex md4>
-          <slide-list></slide-list>
-        </v-flex>
-      </v-layout>
-    </v-container>
-  </div>
+  <v-container class="wrapper">
+    <div class="display">
+      <slide-display></slide-display>
+    </div>
+    <div class="list">
+      <slide-list></slide-list>
+    </div>
+  </v-container>
 </template>
 
 <script>
@@ -29,3 +24,17 @@ export default {
 };
 </script>
 
+<style lang="scss">
+.wrapper {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: 3fr 1fr;
+  grid-template-areas: 'display list';
+  .display {
+    grid-area: display;
+  }
+  .list {
+    grid-area: list;
+  }
+}
+</style>

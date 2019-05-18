@@ -1,26 +1,18 @@
 <template>
-  <v-layout row wrap>
-    <v-container grid-list-md>
-      <v-layout row wrap>
-        <v-flex md-6>
-          <v-text-field v-model="slide.title" label="Título" @keyup="setTitle"></v-text-field>
-        </v-flex>
-        <v-flex md-6>
-          <v-text-field v-model="slide.description" label="Descripción" @keyup="setDescription"></v-text-field>
-        </v-flex>
-      </v-layout>
-    </v-container>
-    <v-container grid-list-md>
-      <v-layout row wrap>
-        <v-img :src="imgPath" class="grey lighten-2" contain></v-img>
-      </v-layout>
-    </v-container>
-    <v-container grid-list-md>
-      <v-layout row wrap>
-        <save-changes></save-changes>
-      </v-layout>
-    </v-container>
-  </v-layout>
+  <v-container class="wrapper">
+    <div class="title">
+      <v-text-field v-model="slide.title" label="Título" @keyup="setTitle"></v-text-field>
+    </div>
+    <div class="description">
+      <v-text-field v-model="slide.description" label="Descripción" @keyup="setDescription"></v-text-field>
+    </div>
+    <div class="player">
+      <v-img :src="imgPath" class="grey lighten-2" contain></v-img>
+    </div>
+    <div class="save">
+      <save-changes></save-changes>
+    </div>
+  </v-container>
 </template>
 
 <script>
@@ -74,3 +66,28 @@ export default {
 };
 </script>
 
+<style lang="scss" scoped>
+.wrapper {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'title  description'
+    'player player'
+    'save   save';
+  .title {
+    grid-area: title;
+  }
+  .description {
+    grid-area: description;
+  }
+  .player {
+    grid-area: player;
+  }
+  .save {
+    grid-area: save;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+</style>
