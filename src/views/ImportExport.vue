@@ -1,17 +1,18 @@
 <template>
   <div class="wrapper">
     <div class="col">
-      <p>Exportar el proyecto para guardar los cambios, trabajar en otro proyecto y volver a usarlo cuando se necesite</p>
+      <h3>Exportar el proyecto para guardar los cambios, trabajar en otro proyecto y volver a usarlo cuando se necesite.</h3>
       <div class="col__actions">
         <export-btn></export-btn>
       </div>
     </div>
     <div class="col">
-      <p>
-        Al importar otro proyecto el actual se eliminará.
-        <br>Primero debe
-        <span class="col__text--highlighted">exportarlo</span> si desea seguir usándolo en futuras ocasiones.
-      </p>
+      <h3>
+        Al importar otro proyecto <span class="col__text--danger">el actual se eliminará</span>.
+        <br/>
+        <br/>
+        Primero debe <span class="col__text--highlighted">exportarlo</span> si desea seguir usándolo en futuras ocasiones.
+      </h3>
       <div class="col__actions">
         <import-btn></import-btn>
       </div>
@@ -46,12 +47,17 @@ export default {
   text-align: center;
   .col {
     display: grid;
-    grid-template-rows: 3fr 1fr;
+    grid-template-rows: 1fr 4fr;
     grid-gap: 1rem;
     padding: 2rem;
     border: 1px solid black;
-    &__text--highlighted {
-      text-decoration: underline;
+    &__text{
+      &--highlighted {
+        text-decoration: underline;
+      }
+      &--danger {
+        color: red;
+      }
     }
     &__actions {
       display: flex;

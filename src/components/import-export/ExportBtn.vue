@@ -1,6 +1,6 @@
 <template>
   <main>
-    <v-btn color="success" @click="handleClick">Exportar</v-btn>
+    <v-btn color="success" @click="handleClick" :disabled="!slides.length">Exportar</v-btn>
   </main>
 </template>
 
@@ -10,6 +10,13 @@ import axios from 'axios';
 
 export default {
   name: 'ExportBtn',
+  computed: {
+    slides: {
+      get() {
+        return this.$store.getters['manageSlides/slides'];
+      },
+    },
+  },
   methods: {
     async handleClick() {
       dbService.setDbNameSync('slides');

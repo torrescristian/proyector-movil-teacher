@@ -1,16 +1,16 @@
 <template>
   <v-container class="wrapper">
     <div class="title">
-      <v-text-field v-model="slide.title" label="Título" @keyup="setTitle"></v-text-field>
+      <v-text-field v-model="slide.title" label="Título" @keyup="setTitle" :disabled="!slides.length"></v-text-field>
     </div>
     <div class="description">
-      <v-text-field v-model="slide.description" label="Descripción" @keyup="setDescription"></v-text-field>
-    </div>
-    <div class="player">
-      <v-img :src="imgPath" class="grey lighten-2" contain></v-img>
+      <v-text-field v-model="slide.description" label="Descripción" @keyup="setDescription" :disabled="!slides.length"></v-text-field>
     </div>
     <div class="save">
       <save-changes></save-changes>
+    </div>
+    <div class="player">
+      <v-img :src="imgPath" class="grey lighten-2" contain></v-img>
     </div>
   </v-container>
 </template>
@@ -73,8 +73,8 @@ export default {
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
     'title  description'
-    'player player'
-    'save   save';
+    'save   save'
+    'player player';
   .title {
     grid-area: title;
   }
