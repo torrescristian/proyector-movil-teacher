@@ -17,14 +17,14 @@
 
 <script>
 import SaveChanges from './SaveChanges.vue';
-import _ from 'lodash';
+import cloneDeep from 'lodash.clonedeep';
 
 export default {
   name: 'SlideDisplay',
   computed: {
     slide: {
       get() {
-        return _.cloneDeep(this.$store.getters['manageSlides/activeSlide']);
+        return cloneDeep(this.$store.getters['manageSlides/activeSlide']);
       },
     },
     slides: {

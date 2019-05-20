@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import cloneDeep from 'lodash.clonedeep';
 import slideService from '../../services/slide.service';
 
 export default {
@@ -20,12 +20,12 @@ export default {
       state.slides = slides;
     },
     setActiveSlide(state, { slide }) {
-      state.activeSlide = _.cloneDeep(slide);
+      state.activeSlide = cloneDeep(slide);
     },
     pull(state, { slides }) {
       state.slides = slides;
       if (state.slides.length > 0) {
-        state.activeSlide = _.cloneDeep(slides[0]);
+        state.activeSlide = cloneDeep(slides[0]);
       }
     },
   },
