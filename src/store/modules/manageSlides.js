@@ -1,5 +1,5 @@
 import cloneDeep from 'lodash.clonedeep';
-import slideService from '../../services/slide.service';
+import slideService from '@/services/slide.service';
 
 export default {
   namespaced: true,

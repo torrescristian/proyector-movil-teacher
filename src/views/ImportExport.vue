@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import ExportBtn from '../components/import-export/ExportBtn.vue';
-import ImportBtn from '../components/import-export/ImportBtn.vue';
+import ExportBtn from '@/components/import-export/ExportBtn.vue';
+import ImportBtn from '@/components/import-export/ImportBtn.vue';
 
 export default {
   name: 'ImportView',

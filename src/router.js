@@ -1,8 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
-import ImportExport from './views/ImportExport.vue';
-import AnalyticsView from './views/AnalyticsView.vue';
 
 Vue.use(Router);
 

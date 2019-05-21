@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import dbService from '../../services/db.service';
+import dbService from '@/services/db.service';
 import axios from 'axios';
 
 export default {

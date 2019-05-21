@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import slideService from '../../services/slide.service.js';
+import slideService from '@/services/slide.service.js';
 
 export default {
   methods: {

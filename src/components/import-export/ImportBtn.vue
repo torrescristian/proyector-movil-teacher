@@ -26,7 +26,7 @@
 
 <script>
 import MultipleFileUploader from './MultipleFileUploader';
-import slideService from '../../services/slide.service';
+import slideService from '@/services/slide.service';
 
 export default {
   name: 'ImportBtn',
