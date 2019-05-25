@@ -17,7 +17,7 @@
       ></v-text-field>
     </div>
     <div class="save">
-      <save-changes></save-changes>
+      <btn-save-changes></btn-save-changes>
     </div>
     <div class="player">
       <v-img :src="imgPath" class="grey lighten-2" contain></v-img>
@@ -26,11 +26,11 @@
 </template>
 
 <script>
-import SaveChanges from './SaveChanges.vue';
+import BtnSaveChanges from './BtnSaveChanges.vue';
 import cloneDeep from 'lodash.clonedeep';
 
 export default {
-  name: 'SlideDisplay',
+  name: 'Display',
   computed: {
     slide: {
       get() {
@@ -49,7 +49,7 @@ export default {
     },
   },
   components: {
-    SaveChanges,
+    BtnSaveChanges,
   },
   methods: {
     async setTitle(event) {

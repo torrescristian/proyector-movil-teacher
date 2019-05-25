@@ -9,7 +9,7 @@ import dbService from '@/services/db.service';
 import axios from 'axios';
 
 export default {
-  name: 'ExportBtn',
+  name: 'BtnExport',
   computed: {
     slides: {
       get() {

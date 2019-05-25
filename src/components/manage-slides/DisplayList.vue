@@ -16,7 +16,7 @@ import UploadFile from './UploadFile.vue';
 import DragAndDrop from './DragAndDrop.vue';
 
 export default {
-  name: 'SlideList',
+  name: 'DisplayList',
   components: {
     UploadFile,
     DragAndDrop,

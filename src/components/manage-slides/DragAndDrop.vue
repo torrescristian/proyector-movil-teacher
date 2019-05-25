@@ -11,7 +11,7 @@
           <v-list-tile-sub-title v-html="slide.description"></v-list-tile-sub-title>
         </v-list-tile-content>
         <v-spacer></v-spacer>
-        <delete-item :slide="slide"></delete-item>
+        <btn-delete-item :slide="slide"></btn-delete-item>
       </v-list-tile>
     </template>
   </draggable>
@@ -19,7 +19,7 @@
 
 <script>
 import draggable from 'vuedraggable';
-import DeleteItem from './DeleteItem.vue';
+import BtnDeleteItem from './BtnDeleteItem.vue';
 
 export default {
   name: 'DragAndDrop',
@@ -50,7 +50,7 @@ export default {
   },
   components: {
     draggable,
-    DeleteItem,
+    BtnDeleteItem,
   },
 };
 </script>

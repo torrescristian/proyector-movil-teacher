@@ -3,7 +3,7 @@
     <div class="col">
       <h3>Exportar el proyecto para guardar los cambios, trabajar en otro proyecto y volver a usarlo cuando se necesite.</h3>
       <div class="col__actions">
-        <export-btn></export-btn>
+        <btn-export></btn-export>
       </div>
     </div>
     <div class="col">
@@ -15,15 +15,15 @@
         <span class="col__text--highlighted">exportarlo</span> si desea seguir usándolo en futuras ocasiones.
       </h3>
       <div class="col__actions">
-        <import-btn></import-btn>
+        <btn-import></btn-import>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ExportBtn from '@/components/import-export/ExportBtn.vue';
-import ImportBtn from '@/components/import-export/ImportBtn.vue';
+import BtnExport from '@/components/import-export/BtnExport.vue';
+import BtnImport from '@/components/import-export/BtnImport.vue';
 
 export default {
   name: 'ImportView',
@@ -33,8 +33,8 @@ export default {
     });
   },
   components: {
-    ExportBtn,
-    ImportBtn,
+    BtnExport,
+    BtnImport,
   },
 };
 </script>

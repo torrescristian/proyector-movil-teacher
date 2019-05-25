@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'SaveChanges',
+  name: 'BtnSaveChanges',
   computed: {
     slides: {
       get() {

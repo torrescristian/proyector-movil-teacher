@@ -1,17 +1,17 @@
 <template>
   <v-container class="wrapper">
     <div class="display">
-      <slide-display></slide-display>
+      <display></display>
     </div>
     <div class="list">
-      <slide-list></slide-list>
+      <display-list></display-list>
     </div>
   </v-container>
 </template>
 
 <script>
-import SlideList from '@/components/manage-slides/SlideList.vue';
-import SlideDisplay from '@/components/manage-slides/SlideDisplay.vue';
+import DisplayList from '@/components/manage-slides/DisplayList.vue';
+import Display from '@/components/manage-slides/Display.vue';
 
 export default {
   name: 'manageSlides',
@@ -20,7 +20,7 @@ export default {
       title: 'Gestionar Filminas',
     });
   },
-  components: { SlideList, SlideDisplay },
+  components: { DisplayList, Display },
 };
 </script>
 
