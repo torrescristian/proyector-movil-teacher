@@ -54,7 +54,11 @@ export default {
     dbService.setDbNameSync('slides');
     await dbService.remove(slide.image);
     try {
-      await axios.delete(`/api/teacher/slide/${slide.image}`);
+      await axios.delete(`/api/teacher/slide/${slide.image}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        }
+      });
     } catch (err) {}
   },
 };

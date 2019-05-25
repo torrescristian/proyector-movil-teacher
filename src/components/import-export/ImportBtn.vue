@@ -2,6 +2,7 @@
   <main>
     <multiple-file-uploader
       postURL="/api/teacher/import"
+      :postHeader="headers"
       :maxItems="1"
       headerMessage="Importar proyecto"
       successMessagePath="¡Se ha importado el proyecto con éxito 😃!"
@@ -30,6 +31,16 @@ import slideService from '@/services/slide.service';
 
 export default {
   name: 'ImportBtn',
+  data() {
+    return {
+      headers: null,
+    };
+  },
+  mounted() {
+    this.headers = {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    };
+  },
   methods: {
     async handleSuccess(data) {
       await slideService.replaceAll(Object.values(data));

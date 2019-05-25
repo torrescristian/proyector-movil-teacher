@@ -6,7 +6,7 @@ export default {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'multipart/form-data',
-        // Authorization: localStorage.get('token'),
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     });
   },

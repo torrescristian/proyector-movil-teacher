@@ -20,10 +20,14 @@ export default {
   methods: {
     async handleClick() {
       dbService.setDbNameSync('slides');
+      const token = localStorage.getItem('token');
       await axios.post('/api/teacher/export', {
         database: await dbService.json(),
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
       });
-      window.open('http://localhost:3000/api/teacher/export');
+      window.open(`http://localhost:3000/api/teacher/export?token=${token}`);
     },
   },
 };
