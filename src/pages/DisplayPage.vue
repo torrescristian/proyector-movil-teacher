@@ -1,10 +1,18 @@
 <template>
-  <v-container grid-list-md>
-    <div>2 - Lorem ipsum dolor sit amet consectetur adipisicing elit. At dignissimos reprehenderit fuga voluptatibus dolores magni voluptate aspernatur, repellat ipsum. Itaque cupiditate repudiandae illum rerum assumenda temporibus recusandae. Excepturi, consequuntur labore.</div>
+  <v-container class="wrapper">
+    <div class="display">
+      <display></display>
+    </div>
+    <div class="list">
+      <display-list></display-list>
+    </div>
   </v-container>
 </template>
 
 <script>
+import Display from '@/components/display-page/Display.vue';
+import DisplayList from '@/components/display-page/DisplayList.vue';
+
 export default {
   name: 'Reproducir',
   mounted() {
@@ -12,6 +20,21 @@ export default {
       title: 'Reproducir',
     });
   },
+  components: { Display, DisplayList },
 };
 </script>
 
+<style lang="scss">
+.wrapper {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: 3fr 1fr;
+  grid-template-areas: 'display list';
+  .display {
+    grid-area: display;
+  }
+  .list {
+    grid-area: list;
+  }
+}
+</style>
