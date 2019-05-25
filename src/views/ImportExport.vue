@@ -8,10 +8,11 @@
     </div>
     <div class="col">
       <h3>
-        Al importar otro proyecto <span class="col__text--danger">el actual se eliminará</span>.
-        <br/>
-        <br/>
-        Primero debe <span class="col__text--highlighted">exportarlo</span> si desea seguir usándolo en futuras ocasiones.
+        Al importar otro proyecto
+        <span class="col__text--danger">el actual se eliminará</span>.
+        <br>
+        <br>Primero debe
+        <span class="col__text--highlighted">exportarlo</span> si desea seguir usándolo en futuras ocasiones.
       </h3>
       <div class="col__actions">
         <import-btn></import-btn>
@@ -51,7 +52,7 @@ export default {
     grid-gap: 1rem;
     padding: 2rem;
     border: 1px solid black;
-    &__text{
+    &__text {
       &--highlighted {
         text-decoration: underline;
       }

@@ -51,11 +51,13 @@ export default {
 }
 @media only screen and (max-width: 768px) {
   /* For mobile phones: */
-  .nav__link {
-    padding: 1rem;
-  }
-  .nav__text {
-    display: none;
+  .nav {
+    &__link {
+      padding: 1rem;
+    }
+    &__text {
+      display: none;
+    }
   }
 }
 </style> 

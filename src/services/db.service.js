@@ -33,5 +33,5 @@ export default {
   remove(key) {
     this.create();
     return this.store.remove(key);
-  }
+  },
 };

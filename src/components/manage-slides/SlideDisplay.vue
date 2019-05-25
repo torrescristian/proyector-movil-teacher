@@ -1,10 +1,20 @@
 <template>
   <v-container class="wrapper">
     <div class="title">
-      <v-text-field v-model="slide.title" label="Título" @keyup="setTitle" :disabled="!slides.length"></v-text-field>
+      <v-text-field
+        v-model="slide.title"
+        label="Título"
+        @keyup="setTitle"
+        :disabled="!slides.length"
+      ></v-text-field>
     </div>
     <div class="description">
-      <v-text-field v-model="slide.description" label="Descripción" @keyup="setDescription" :disabled="!slides.length"></v-text-field>
+      <v-text-field
+        v-model="slide.description"
+        label="Descripción"
+        @keyup="setDescription"
+        :disabled="!slides.length"
+      ></v-text-field>
     </div>
     <div class="save">
       <save-changes></save-changes>

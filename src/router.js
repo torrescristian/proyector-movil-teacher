@@ -23,7 +23,9 @@ export default new Router({
       path: '/importar-exportar-proyecto',
       name: 'import-export',
       component: () =>
-        import(/* webpackChunkName: "import-export" */ './views/ImportExport.vue'),
+        import(
+          /* webpackChunkName: "import-export" */ './views/ImportExport.vue'
+        ),
     },
     {
       path: '/analitica',
