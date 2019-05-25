@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'AnalyticsView',
+  name: 'Analytics',
   mounted() {
     this.$store.dispatch('template/setTitle', {
       title: 'Analítica',

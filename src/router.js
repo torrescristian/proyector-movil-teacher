@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
+import SharePage from './pages/SharePage.vue';
 
 Vue.use(Router);
 
@@ -9,31 +9,39 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home,
+      name: 'share-page',
+      component: SharePage,
+    },
+    {
+      path: '/reproducir',
+      name: 'display-page',
+      component: () =>
+        import(
+          /* webpackChunkName: "display-page" */ './pages/DisplayPage.vue'
+        ),
     },
     {
       path: '/gestionar-filminas',
-      name: 'manage-slides',
+      name: 'manage-slides-page',
       component: () =>
         import(
-          /* webpackChunkName: "manage-slides" */ './views/ManageSlides.vue'
+          /* webpackChunkName: "manage-slides-page" */ './pages/ManageSlidesPage.vue'
         ),
     },
     {
       path: '/importar-exportar-proyecto',
-      name: 'import-export',
+      name: 'import-export-page',
       component: () =>
         import(
-          /* webpackChunkName: "import-export" */ './views/ImportExport.vue'
+          /* webpackChunkName: "import-export-page" */ './pages/ImportExportPage.vue'
         ),
     },
     {
       path: '/analitica',
-      name: 'analitica',
+      name: 'analytics-page',
       component: () =>
         import(
-          /* webpackChunkName: "manage-slides" */ './views/AnalyticsView.vue'
+          /* webpackChunkName: "analytics-page" */ './pages/AnalyticsPage.vue'
         ),
     },
   ],

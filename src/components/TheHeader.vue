@@ -3,6 +3,10 @@
     <h1>{{ title }}</h1>
     <div class="nav__router">
       <router-link to="/" class="nav__link">
+        <v-icon class="nav__icon">share</v-icon>
+        <span class="nav__text"> Compartir filminas</span>
+      </router-link>
+      <router-link to="/reproducir" class="nav__link">
         <v-icon class="nav__icon">ondemand_video</v-icon>
         <span class="nav__text"> Reproducir Filminas</span>
       </router-link>
