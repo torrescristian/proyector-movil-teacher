@@ -5,20 +5,20 @@
     </v-toolbar>
     <v-list>
       <drag-and-drop></drag-and-drop>
-      <upload-file></upload-file>
+      <btn-upload-file></btn-upload-file>
     </v-list>
   </v-card>
 </template>
 
 <script>
 import uploadService from '@/services/upload.service';
-import UploadFile from './UploadFile.vue';
+import BtnUploadFile from './BtnUploadFile.vue';
 import DragAndDrop from './DragAndDrop.vue';
 
 export default {
   name: 'DisplayList',
   components: {
-    UploadFile,
+    BtnUploadFile,
     DragAndDrop,
   },
 };
