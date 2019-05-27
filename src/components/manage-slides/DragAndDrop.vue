@@ -2,7 +2,7 @@
 <template>
   <draggable v-model="slides" group="image" @change="handleDragAndDrop">
     <template v-for="(slide, index) in slides">
-      <v-list-tile :key="index" avatar @click="handleClickActiveSlide(slide)">
+      <v-list-tile :key="index" avatar @click="handleClickSlide(slide)">
         <v-list-tile-avatar>
           <img :src="'/api/slide/' + slide.image">
         </v-list-tile-avatar>
@@ -35,11 +35,8 @@ export default {
       },
     },
   },
-  async mounted() {
-    await this.$store.dispatch('manageSlides/pull');
-  },
   methods: {
-    async handleClickActiveSlide(slide) {
+    async handleClickSlide(slide) {
       await this.$store.dispatch('manageSlides/setActiveSlide', {
         slide,
       });

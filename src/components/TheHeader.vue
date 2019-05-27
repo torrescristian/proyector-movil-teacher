@@ -4,7 +4,7 @@
     <div class="nav__router">
       <router-link to="/" class="nav__link">
         <v-icon class="nav__icon">share</v-icon>
-        <span class="nav__text"> Compartir filminas</span>
+        <span class="nav__text"> Compartir Aplicación</span>
       </router-link>
       <router-link to="/reproducir" class="nav__link">
         <v-icon class="nav__icon">ondemand_video</v-icon>

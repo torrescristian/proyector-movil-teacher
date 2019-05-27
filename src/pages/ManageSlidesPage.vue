@@ -15,10 +15,11 @@ import Display from '@/components/manage-slides/Display.vue';
 
 export default {
   name: 'manageSlides',
-  mounted() {
+  async mounted() {
     this.$store.dispatch('template/setTitle', {
       title: 'Gestionar Filminas',
     });
+    await this.$store.dispatch('manageSlides/pull');
   },
   components: { DisplayList, Display },
 };

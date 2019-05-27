@@ -3,24 +3,21 @@
     <div class="display">
       <display></display>
     </div>
-    <div class="list">
-      <display-list></display-list>
-    </div>
   </v-container>
 </template>
 
 <script>
 import Display from '@/components/display-page/Display.vue';
-import DisplayList from '@/components/display-page/DisplayList.vue';
 
 export default {
   name: 'Reproducir',
-  mounted() {
+  async mounted() {
     this.$store.dispatch('template/setTitle', {
-      title: 'Reproducir',
+      title: 'Reproducir Filminas',
     });
+    await this.$store.dispatch('manageSlides/pull');
   },
-  components: { Display, DisplayList },
+  components: { Display },
 };
 </script>
 
@@ -28,8 +25,8 @@ export default {
 .wrapper {
   display: grid;
   grid-gap: 1rem;
-  grid-template-columns: 3fr 1fr;
-  grid-template-areas: 'display list';
+  grid-template-columns: 1fr;
+  grid-template-areas: 'display';
   .display {
     grid-area: display;
   }
