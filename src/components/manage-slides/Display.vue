@@ -1,6 +1,6 @@
 <template>
-  <v-container class="wrapper">
-    <div class="title">
+  <v-container class="display">
+    <div class="display__title">
       <v-text-field
         v-model="slide.title"
         label="Título"
@@ -8,7 +8,7 @@
         :disabled="!slides.length"
       ></v-text-field>
     </div>
-    <div class="description">
+    <div class="display__description">
       <v-text-field
         v-model="slide.description"
         label="Descripción"
@@ -16,11 +16,11 @@
         :disabled="!slides.length"
       ></v-text-field>
     </div>
-    <div class="save">
+    <div class="display__save-button">
       <btn-save-changes></btn-save-changes>
     </div>
-    <div class="player">
-      <v-img :src="imgPath" class="grey lighten-2" contain></v-img>
+    <div class="display__img-container">
+      <img :src="imgPath" class="display__img"/>
     </div>
   </v-container>
 </template>
@@ -81,7 +81,7 @@ export default class DisplayComponent extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.wrapper {
+.display {
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: 1fr 1fr;
@@ -89,16 +89,21 @@ export default class DisplayComponent extends Vue {
     'title  description'
     'save   save'
     'player player';
-  .title {
+  &__title {
     grid-area: title;
   }
-  .description {
+  &__description {
     grid-area: description;
   }
-  .player {
-    grid-area: player;
+  &__img {
+    height: 50vh;
+    &-container {
+      grid-area: player;
+      display: flex;
+      justify-content: center;
+    }
   }
-  .save {
+  &__save-button {
     grid-area: save;
     display: flex;
     justify-content: flex-end;

@@ -8,22 +8,25 @@ import { LoginService } from '../services/login.service';
 
 @Component
 export default class LoginComponent extends Vue {
-  private error: boolean = false;
+  private error: boolean;
+  private loginService: LoginService;
 
   constructor() {
     super();
-    const loginService = new LoginService();
-    // TODO: fix this: const token: string = this.$route.query.token as string;
-    const search = location.search.split('token=');
-    const token: string = search && search[1];
-    if (token) {
-      loginService.setToken({
-        token,
-      });
-    } else if (!loginService.getToken()) {
-      this.error = true;
-    }
+    this.error = false;
+    this.loginService = new LoginService();
   };
   
+  mounted() {
+    const token: string = this.$route.query.token as string;
+    if (token) {
+      this.loginService.setToken({
+        token,
+      });
+    } else if (!this.loginService.getToken()) {
+      this.error = true;
+    }
+  }
+
 };
 </script>

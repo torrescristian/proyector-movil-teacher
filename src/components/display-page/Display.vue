@@ -1,7 +1,7 @@
 <template>
   <main class="display">
-    <div class="display__img">
-      <img :src="getImgPath()" height="500"/>
+    <div class="display__img-container">
+      <img class="display__img" :src="getImgPath()"/>
     </div>
     <div class="display__buttons">
       <v-btn @click="handleClickPrev" color="primary">
@@ -108,9 +108,12 @@ export default class DisplayComponent extends Vue {
     "display"
     "buttons";
   &__img {
-    grid-area: "display";
-    display: flex;
-    justify-content: center;
+    height: 70vh;
+    &-container { 
+      grid-area: "display";
+      display: flex;
+      justify-content: center;
+    }
   }
   &__buttons {
     grid-area: "buttons";

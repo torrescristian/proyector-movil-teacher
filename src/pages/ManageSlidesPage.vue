@@ -1,9 +1,9 @@
 <template>
-  <v-container class="wrapper">
-    <div class="display">
+  <v-container class="manage-slides">
+    <div class="manage-slides__display">
       <display></display>
     </div>
-    <div class="list">
+    <div class="manage-slides__list">
       <display-list></display-list>
     </div>
   </v-container>
@@ -26,15 +26,15 @@ export default {
 </script>
 
 <style lang="scss">
-.wrapper {
+.manage-slides {
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: 3fr 1fr;
   grid-template-areas: 'display list';
-  .display {
+  &__display {
     grid-area: display;
   }
-  .list {
+  &__list {
     grid-area: list;
   }
 }
