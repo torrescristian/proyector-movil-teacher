@@ -6,8 +6,12 @@ export default {
   state: {
     slides: [],
     activeSlide: {},
+    displayedImageIndex: 0,
   },
   getters: {
+    displayedImageIndex(state) {
+      return state.displayedImageIndex;
+    },
     slides(state) {
       return state.slides;
     },
@@ -22,6 +26,9 @@ export default {
     setActiveSlide(state, { slide }) {
       state.activeSlide = cloneDeep(slide);
     },
+    setDisplayedImageIndex(state, { index }) {
+      state.displayedImageIndex = index;
+    },
     pull(state, { slides }) {
       state.slides = slides;
       if (state.slides.length > 0) {
@@ -35,6 +42,9 @@ export default {
     },
     setActiveSlide({ commit }, payload) {
       commit('setActiveSlide', payload);
+    },
+    setDisplayedImageIndex({ commit }, payload) {
+      commit('setDisplayedImageIndex', payload);
     },
     async overrideActiveSlide({ getters, dispatch }) {
       const { title, description, image } = getters.activeSlide;

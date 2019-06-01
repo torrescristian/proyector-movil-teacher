@@ -28,7 +28,6 @@ export default {
       title: 'Compartir Aplicación',
     });
     axios.get('/api/share-url').then((res) => {
-      console.log(res)
       this.shareUrl = res.data.url;
     });
   },

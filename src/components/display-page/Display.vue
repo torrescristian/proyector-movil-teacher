@@ -1,18 +1,9 @@
 <template>
-  <main class="wrapper">
-    <v-carousel 
-      hide-delimiters 
-      :interval="99999999" 
-      @change="handleChange"
-      class="carousel"
-    >
-      <v-carousel-item 
-        v-for="(slide,i) in slides"
-        :key="i"
-        :src="getImgPath(slide)"
-      ></v-carousel-item>
-    </v-carousel>
-    <div class="buttons">
+  <main class="display">
+    <div class="display__img">
+      <img :src="getImgPath()" height="500"/>
+    </div>
+    <div class="display__buttons">
       <v-btn @click="handleClickPrev" color="primary">
         <v-icon>navigate_before</v-icon>
         Anterior
@@ -33,8 +24,6 @@ export default {
   name: 'Display',
   data() {
     return {
-      nextBtnElem: null,
-      prevBtnElem: null,
       io: null,
       imageName: '',
     };
@@ -45,14 +34,28 @@ export default {
         return this.$store.getters['manageSlides/slides'];
       },
     },
+    imageIndex: {
+      get() {
+        return this.$store.getters['manageSlides/displayedImageIndex'];
+      },
+      set(index) {
+        this.$store.dispatch('manageSlides/setDisplayedImageIndex', {
+          index,
+        });    
+      },
+    },
+  },
+  watch: {
+    imageIndex(val, oldVal) {
+      this.imageName = this.slides[val].image;
+    },
+    slides(val, oldVal) {
+      this.imageName = val[this.imageIndex].image;
+    },
   },
   mounted() {
-    this.nextBtnElem = document.querySelector('.v-carousel__next button');
-    this.nextBtnElem.style.display = 'none';
-    this.prevBtnElem = document.querySelector('.v-carousel__prev button');
-    this.prevBtnElem.style.display = 'none';
-    this.io = SocketIO();
-    window.addEventListener('keyup', (event) => {
+      this.io = SocketIO();
+      window.addEventListener('keyup', (event) => {
       const key = event.key;
       if (key === 'ArrowRight') {
         this.handleClickNext();
@@ -65,41 +68,45 @@ export default {
     }, 1000);
   },
   methods: {
-    getImgPath(slide) {
-      return slide.image && this.slides.length
-        ? '/api/slide/' + slide.image
+    mod(n, m) {
+      return ((n % m) + m) % m;
+    },
+    getImgPath() {
+      return this.slides.length
+        ? `/api/slide/${this.imageName}`
         : 'default.gif';
     },
-    handleChange(index) {
-      this.imageName = this.slides[index].image;
+    changeImageIndexBy(delta) {
+      this.imageIndex =  this.mod(this.imageIndex + delta, this.slides.length);
+      this.emit();
     },
     async handleClickNext() {
-      await this.nextBtnElem.click();
-      this.emit();
+      this.changeImageIndexBy(1);
     },
     async handleClickPrev() {
-      await this.prevBtnElem.click();
-      this.emit();
+      this.changeImageIndexBy(-1);
     },
     emit(){
       this.io.emit('client:message', {
         imageName: this.imageName,
       });
-    }
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.wrapper {
+.display {
   display: grid;
   grid-template-areas: 
     "display"
     "buttons";
-  .carousel {
+  &__img {
     grid-area: "display";
+    display: flex;
+    justify-content: center;
   }
-  .buttons {
+  &__buttons {
     grid-area: "buttons";
     display: flex;
     justify-content: center;
