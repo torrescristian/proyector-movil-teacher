@@ -17,16 +17,19 @@
   </main>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 import axios from 'axios';
 
-export default {
-  name: 'home',
-  data() {
-    return {
-      shareUrl: '',
-    };
-  },
+@Component
+export default class SharePageComponent extends Vue {
+  shareUrl: string;
+
+  constructor() {
+    super();
+    this.shareUrl = '';
+  }
+
   mounted() {
     this.$store.dispatch('template/setTitle', {
       title: 'Compartir Aplicación',
@@ -34,7 +37,8 @@ export default {
     axios.get('/api/share-url').then((res) => {
       this.shareUrl = res.data.url;
     });
-  },
+  };
+  
 };
 </script>
 

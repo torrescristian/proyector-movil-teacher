@@ -21,21 +21,23 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 import BtnExport from '@/components/import-export/BtnExport.vue';
 import BtnImport from '@/components/import-export/BtnImport.vue';
 
-export default {
-  name: 'ImportView',
-  mounted() {
-    this.$store.dispatch('template/setTitle', {
-      title: 'Importar / Exportar Proyecto',
-    });
-  },
+@Component({
   components: {
     BtnExport,
     BtnImport,
   },
+})
+export default class ImportViewComponent extends Vue {
+  mounted() {
+    this.$store.dispatch('template/setTitle', {
+      title: 'Importar / Exportar Proyecto',
+    });
+  };
 };
 </script>
 

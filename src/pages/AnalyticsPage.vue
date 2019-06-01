@@ -4,14 +4,16 @@
   </v-container>
 </template>
 
-<script>
-export default {
-  name: 'Analytics',
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+
+@Component
+export default class AnalyticsComponent extends Vue {
   mounted() {
     this.$store.dispatch('template/setTitle', {
       title: 'Analítica',
     });
-  },
+  };
 };
 </script>
 

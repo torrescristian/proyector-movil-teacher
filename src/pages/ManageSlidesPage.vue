@@ -9,19 +9,21 @@
   </v-container>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 import DisplayList from '@/components/manage-slides/DisplayList.vue';
 import Display from '@/components/manage-slides/Display.vue';
 
-export default {
-  name: 'manageSlides',
-  async mounted() {
+@Component({
+  components: { DisplayList, Display },
+})
+export default class ManageSlidesComponent extends Vue {
+  mounted() {
     this.$store.dispatch('template/setTitle', {
       title: 'Gestionar Filminas',
     });
-    await this.$store.dispatch('manageSlides/pull');
-  },
-  components: { DisplayList, Display },
+    this.$store.dispatch('manageSlides/pull');
+  };
 };
 </script>
 

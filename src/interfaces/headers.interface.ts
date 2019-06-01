@@ -1,3 +1,3 @@
 export class Headers {
-    authorization: string,
+    authorization: string;
 }

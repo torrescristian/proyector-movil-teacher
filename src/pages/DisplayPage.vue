@@ -6,18 +6,20 @@
   </v-container>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 import Display from '../components/display-page/Display.vue';
 
-export default {
-  name: 'Reproducir',
-  async mounted() {
+@Component({
+  components: { Display },
+})
+export default class ReproducirComponent extends Vue {
+  mounted() {
     this.$store.dispatch('template/setTitle', {
       title: 'Reproducir Filminas',
     });
-    await this.$store.dispatch('manageSlides/pull');
-  },
-  components: { Display },
+    this.$store.dispatch('manageSlides/pull');
+  };
 };
 </script>
 
