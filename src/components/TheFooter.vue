@@ -5,8 +5,10 @@
   </v-footer>
 </template>
 
-<script>
-export default {
-  name: 'TheFooter',
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+
+@Component
+export default class TheFooterComponent extends Vue {
 };
 </script>

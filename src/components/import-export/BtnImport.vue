@@ -25,30 +25,35 @@
   </main>
 </template>
 
-<script>
-import MultipleFileUploader from './MultipleFileUploader';
-import slideService from '@/services/slide.service';
+<script lang="ts">
+import MultipleFileUploader from './MultipleFileUploader.vue';
+import { SlideService } from '../../services/slide.service';
+import { Vue, Component } from 'vue-property-decorator';
+import { Headers } from '../../interfaces/headers.interface';
+import { LoginService } from '../../services/login.service';
 
-export default {
-  name: 'BtnImport',
-  data() {
-    return {
-      headers: null,
-    };
-  },
-  mounted() {
-    this.headers = {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    };
-  },
-  methods: {
-    async handleSuccess(data) {
-      await slideService.replaceAll(Object.values(data));
-      await this.$store.dispatch('manageSlides/pull');
-    },
-  },
+@Component({
   components: {
     MultipleFileUploader,
-  },
+  }
+})
+export default class BtnImportComponent extends Vue {
+  headers: Headers;
+  slideService: SlideService;
+  loginService: LoginService;
+
+  constructor() {
+    super();
+    this.slideService = new SlideService();
+    this.loginService = new LoginService();
+    this.headers = {
+      authorization: `Bearer ${this.loginService.getToken()}`,
+    };
+  };
+  
+  async handleSuccess(data): Promise<any> {
+    await this.slideService.replaceAll(Object.values(data));
+    await this.$store.dispatch('manageSlides/pull');
+  };
 };
 </script>

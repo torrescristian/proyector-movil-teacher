@@ -26,14 +26,14 @@
   </nav>
 </template>
 
-<script>
-export default {
-  name: 'TheHeader',
-  computed: {
-    title() {
-      return this.$store.getters['template/title'];
-    },
-  },
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+
+@Component
+export default class TheHeaderComponent extends Vue {
+  get title() {
+    return this.$store.getters['template/title'];
+  }
 };
 </script>
 

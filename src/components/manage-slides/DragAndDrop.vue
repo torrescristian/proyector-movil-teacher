@@ -17,38 +17,40 @@
   </draggable>
 </template>
 
-<script>
+<script lang="ts">
 import draggable from 'vuedraggable';
 import BtnDeleteItem from './BtnDeleteItem.vue';
+import { Component, Vue } from 'vue-property-decorator';
+import { Slide } from '../../interfaces/slide.interface';
 
-export default {
-  name: 'DragAndDrop',
-  computed: {
-    slides: {
-      get() {
-        return this.$store.getters['manageSlides/slides'];
-      },
-      set(newValue) {
-        this.$store.dispatch('manageSlides/set', {
-          slides: newValue,
-        });
-      },
-    },
-  },
-  methods: {
-    async handleClickSlide(slide) {
-      await this.$store.dispatch('manageSlides/setActiveSlide', {
-        slide,
-      });
-    },
-    async handleDragAndDrop() {
-      await this.$store.dispatch('manageSlides/flush');
-    },
-  },
+@Component({
   components: {
     draggable,
     BtnDeleteItem,
   },
+})
+export default class DragAndDropComponent extends Vue {
+  // properties
+  get slides(): Slide[] {
+    return this.$store.getters['manageSlides/slides'];
+  };
+  
+  set slides(newValues: Slide[]) {
+    this.$store.dispatch('manageSlides/set', {
+      slides: newValues,
+    });
+  };
+  
+  async handleClickSlide(slide: Slide): Promise<any> {
+    await this.$store.dispatch('manageSlides/setActiveSlide', {
+      slide,
+    });
+  };
+
+  async handleDragAndDrop(): Promise<any> {
+    await this.$store.dispatch('manageSlides/flush');
+  };
+
 };
 </script>
 

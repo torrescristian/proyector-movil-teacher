@@ -7,13 +7,19 @@
   </v-app>
 </template>
 
-<script>
-// @ is an alias to /src
-import TheFooter from '@/components/TheFooter.vue';
-import TheHeader from '@/components/TheHeader.vue';
-import LoginComponent from '@/components/LoginComponent.vue';
+<script lang="ts">
+import TheFooter from './components/TheFooter.vue';
+import TheHeader from './components/TheHeader.vue';
+import LoginComponent from './components/LoginComponent.vue';
+import { Component, Vue } from 'vue-property-decorator';
 
-export default {
-  components: { TheFooter, TheHeader, LoginComponent },
+@Component({
+  components: {
+    TheFooter,
+    TheHeader,
+    LoginComponent,
+  },
+})
+export default class AppComponent extends Vue {
 };
 </script>

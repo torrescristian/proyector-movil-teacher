@@ -10,16 +10,17 @@
   </v-card>
 </template>
 
-<script>
-import uploadService from '@/services/upload.service';
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 import BtnUploadFile from './BtnUploadFile.vue';
 import DragAndDrop from './DragAndDrop.vue';
 
-export default {
-  name: 'DisplayList',
+@Component({
   components: {
     BtnUploadFile,
     DragAndDrop,
-  },
+  }
+})
+export default class DisplayListComponent extends Vue {
 };
 </script>

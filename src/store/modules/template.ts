@@ -1,15 +1,20 @@
+interface TemplateState {
+  title: string,
+};
+
+
 export default {
   namespaced: true,
   state: {
     title: 'home',
   },
   getters: {
-    title(state) {
+    title(state: TemplateState) {
       return state.title;
     },
   },
   mutations: {
-    setTitle(state, { title }) {
+    setTitle(state: TemplateState, { title }) {
       state.title = title;
     },
   },

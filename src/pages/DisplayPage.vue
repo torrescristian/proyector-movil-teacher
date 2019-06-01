@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Display from '@/components/display-page/Display.vue';
+import Display from '../components/display-page/Display.vue';
 
 export default {
   name: 'Reproducir',

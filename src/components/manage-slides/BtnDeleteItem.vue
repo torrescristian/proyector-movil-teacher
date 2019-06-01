@@ -4,17 +4,18 @@
   </v-btn>
 </template>
 
-<script>
-export default {
-  name: 'BtnDeleteItem',
-  props: {
-    slide: Object,
-  },
-  methods: {
-    async deleteItem() {
-      const slide = this.$props.slide;
-      await this.$store.dispatch('manageSlides/delete', { slide });
-    },
-  },
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Slide } from '../../interfaces/slide.interface';
+
+@Component
+export default class BtnDeleteItemComponent extends Vue {
+  @Prop(Object) readonly slide!: Slide;
+  
+  async deleteItem(): Promise<any> {
+    const slide = this.$props.slide;
+    await this.$store.dispatch('manageSlides/delete', { slide });
+  };
+
 };
 </script>

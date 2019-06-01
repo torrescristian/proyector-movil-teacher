@@ -7,19 +7,31 @@
   </form>
 </template>
 
-<script>
-import slideService from '@/services/slide.service.js';
 
-export default {
-  methods: {
-    async uploadFile(event) {
-      await slideService.insertSlide(event);
-      await this.$store.dispatch('manageSlides/pull');
-    },
-    add(event) {
-      this.$refs.file.click();
-    },
-  },
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import { Slide } from '../../interfaces/slide.interface';
+import { SlideService } from '../../services/slide.service';
+
+@Component
+export default class BtnUploadFileComponent extends Vue {
+  slideService: SlideService;
+  $refs: {
+    file: HTMLFormElement
+  }
+  constructor() {
+    super();
+    this.slideService = new SlideService();
+  };
+  
+  async uploadFile(event): Promise<any> {
+    await this.slideService.insertSlide(event);
+    await this.$store.dispatch('manageSlides/pull');
+  };
+  
+  add(): void {
+    this.$refs.file.click();
+  };
 };
 </script>
 

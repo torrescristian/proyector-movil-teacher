@@ -4,31 +4,39 @@
   </main>
 </template>
 
-<script>
-import dbService from '@/services/db.service';
+<script lang="ts">
+import { DBService } from '../../services/db.service';
 import axios from 'axios';
+import { Vue, Component } from 'vue-property-decorator';
+import { Slide } from '../../interfaces/slide.interface';
+import { LoginService } from '../../services/login.service';
 
-export default {
-  name: 'BtnExport',
-  computed: {
-    slides: {
-      get() {
-        return this.$store.getters['manageSlides/slides'];
-      },
-    },
-  },
-  methods: {
-    async handleClick() {
-      dbService.setDbNameSync('slides');
-      const token = localStorage.getItem('token');
-      await axios.post('/api/teacher/export', {
-        database: await dbService.json(),
-        headers: {
-          Authorization: `Bearer ${token}`,
-        }
-      });
-      window.open(`http://localhost:3000/api/teacher/export?token=${token}`);
-    },
-  },
+@Component
+export default class BtnExportComponent extends Vue {
+  dbService: DBService;
+  loginService: LoginService;
+  
+  constructor() {
+    super();
+    this.dbService = new DBService('slides');
+    this.loginService = new LoginService();
+  }
+
+  // properties
+  get slides(): Slide[] {
+    return this.$store.getters['manageSlides/slides'];
+  };
+
+  // methods
+  async handleClick(): Promise<any> {
+    const token = this.loginService.getToken();
+    await axios.post('/api/teacher/export', {
+      database: await this.dbService.json(),
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    });
+    window.open(`http://localhost:3000/api/teacher/export?token=${token}`);
+  };
 };
 </script>

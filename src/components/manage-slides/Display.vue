@@ -25,54 +25,58 @@
   </v-container>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 import BtnSaveChanges from './BtnSaveChanges.vue';
 import cloneDeep from 'lodash.clonedeep';
+import { Slide } from '../../interfaces/slide.interface';
 
-export default {
-  name: 'Display',
-  computed: {
-    slide: {
-      get() {
-        return cloneDeep(this.$store.getters['manageSlides/activeSlide']);
-      },
-    },
-    slides: {
-      get() {
-        return this.$store.getters['manageSlides/slides'];
-      },
-    },
-    imgPath() {
-      return this.slide.image && this.slides.length
-        ? '/api/slide/' + this.slide.image
-        : 'default.gif';
-    },
-  },
+@Component({
   components: {
     BtnSaveChanges,
-  },
-  methods: {
-    async setTitle(event) {
-      const slide = {
-        title: event.target.value,
-        description: this.slide.description,
-        image: this.slide.image,
-      };
-      await this.$store.dispatch('manageSlides/setActiveSlide', {
-        slide,
-      });
-    },
-    async setDescription(event) {
-      const slide = {
-        title: this.slide.title,
-        description: event.target.value,
-        image: this.slide.image,
-      };
-      await this.$store.dispatch('manageSlides/setActiveSlide', {
-        slide,
-      });
-    },
-  },
+  }
+})
+export default class DisplayComponent extends Vue {
+
+  // properties
+  get slide(): Slide {
+    return cloneDeep(this.$store.getters['manageSlides/activeSlide']);
+  };
+
+  get slides(): Slide[] {
+    return this.$store.getters['manageSlides/slides'];
+  };
+  
+  get imgPath(): string {
+    return this.slide.image && this.slides.length
+      ? '/api/slide/' + this.slide.image
+      : 'default.gif';
+  };
+
+  // methods
+  async setTitle(event): Promise<any> {
+    const slide: Slide = {
+      title: event.target.value,
+      description: this.slide.description,
+      image: this.slide.image,
+      order: undefined,
+    };
+    await this.$store.dispatch('manageSlides/setActiveSlide', {
+      slide,
+    });
+  };
+  
+  async setDescription(event): Promise<any> {
+    const slide: Slide = {
+      title: this.slide.title,
+      description: event.target.value,
+      image: this.slide.image,
+      order: undefined,
+    };
+    await this.$store.dispatch('manageSlides/setActiveSlide', {
+      slide,
+    });
+  };
 };
 </script>
 

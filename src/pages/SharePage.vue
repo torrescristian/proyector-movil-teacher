@@ -4,11 +4,15 @@
       <img src="/api/qr">
     </div>
     <div class="share__text">
-      <p>Sino cuenta con lector de QR puede ingresar a la siguiente página web</p>
+      <p>Si el teléfono del alumno no cuenta con lector de QR puede ingresar a la siguiente página web:</p>
       <br/>
-      <h2><a :href="shareUrl">{{ shareUrl }}</a></h2>
+      <h2>{{ shareUrl }}</h2>
       <br/>
-      <em>(Recuerde que debe estar en la misma red wifi)</em>
+      <h3>
+        <v-alert type="warning" :value="true">
+          IMPORTANTE: Debe estar en la misma red wifi esta computadora y el teléfono del alumno.
+        </v-alert>
+      </h3>  
     </div>
   </main>
 </template>

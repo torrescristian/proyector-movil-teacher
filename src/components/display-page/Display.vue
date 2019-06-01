@@ -16,46 +16,20 @@
   </main>
 </template>
 
-<script>
+<script lang="ts">
 import cloneDeep from 'lodash.clonedeep';
 import SocketIO from 'socket.io-client';
+import { Watch, Vue, Component } from 'vue-property-decorator';
 
-export default {
-  name: 'Display',
-  data() {
-    return {
-      io: null,
-      imageName: '',
-    };
-  },
-  computed: {
-    slides: {
-      get() {
-        return this.$store.getters['manageSlides/slides'];
-      },
-    },
-    imageIndex: {
-      get() {
-        return this.$store.getters['manageSlides/displayedImageIndex'];
-      },
-      set(index) {
-        this.$store.dispatch('manageSlides/setDisplayedImageIndex', {
-          index,
-        });    
-      },
-    },
-  },
-  watch: {
-    imageIndex(val, oldVal) {
-      this.imageName = this.slides[val].image;
-    },
-    slides(val, oldVal) {
-      this.imageName = val[this.imageIndex].image;
-    },
-  },
-  mounted() {
-      this.io = SocketIO();
-      window.addEventListener('keyup', (event) => {
+@Component
+export default class DisplayComponent extends Vue {
+  io: any = null;
+  imageName: string = '';
+
+  constructor() {
+    super();
+    this.io = SocketIO();
+    window.addEventListener('keyup', (event) => {
       const key = event.key;
       if (key === 'ArrowRight') {
         this.handleClickNext();
@@ -65,33 +39,65 @@ export default {
     });
     setInterval(() => {
       this.emit();
-    }, 1000);
-  },
-  methods: {
-    mod(n, m) {
-      return ((n % m) + m) % m;
-    },
-    getImgPath() {
-      return this.slides.length
-        ? `/api/slide/${this.imageName}`
-        : 'default.gif';
-    },
-    changeImageIndexBy(delta) {
-      this.imageIndex =  this.mod(this.imageIndex + delta, this.slides.length);
-      this.emit();
-    },
-    async handleClickNext() {
-      this.changeImageIndexBy(1);
-    },
-    async handleClickPrev() {
-      this.changeImageIndexBy(-1);
-    },
-    emit(){
-      this.io.emit('client:message', {
-        imageName: this.imageName,
-      });
-    },
-  },
+    }, 1000);    
+  };
+  
+  // watchers
+  @Watch('imageIndex')
+  handleChangeImageIndex(val, oldVal) {
+    this.imageName = this.slides[val].image;
+  };
+  
+  @Watch('slides')
+  handleChangeSlides(val, oldVal) {
+    this.imageName = val[this.imageIndex].image;
+  };
+
+  // computed properties
+  get slides() {
+    return this.$store.getters['manageSlides/slides'];
+  };
+  
+  get imageIndex() {
+    return this.$store.getters['manageSlides/displayedImageIndex'];
+  };
+
+  set imageIndex(index) {
+    this.$store.dispatch('manageSlides/setDisplayedImageIndex', {
+      index,
+    });    
+  };
+
+  // methods
+  mod(n, m) {
+    return ((n % m) + m) % m;
+  };
+
+  getImgPath() {
+    return this.slides.length
+      ? `/api/slide/${this.imageName}`
+      : 'default.gif';
+  };
+
+  changeImageIndexBy(delta) {
+    this.imageIndex =  this.mod(this.imageIndex + delta, this.slides.length);
+    this.emit();
+  };
+
+  async handleClickNext() {
+    this.changeImageIndexBy(1);
+  };
+
+  async handleClickPrev() {
+    this.changeImageIndexBy(-1);
+  };
+
+  emit(){
+    this.io.emit('client:message', {
+      imageName: this.imageName,
+    });
+  };
+
 };
 </script>
 
