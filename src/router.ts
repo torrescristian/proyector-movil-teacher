@@ -13,6 +13,11 @@ const routes: RouteConfig[] = [
     component: SharePage,
   },
   {
+    path: '/profesor',
+    name: 'share-page-teacher',
+    component: SharePage,
+  },
+  {
     path: '/reproducir',
     name: 'display-page',
     component: () =>
