@@ -31,6 +31,7 @@ import { SlideService } from '../../services/slide.service';
 import { Vue, Component } from 'vue-property-decorator';
 import { Headers } from '../../interfaces/headers.interface';
 import { LoginService } from '../../services/login.service';
+import { Slide } from '../../interfaces/slide.interface';
 
 @Component({
   components: {
@@ -52,7 +53,11 @@ export default class BtnImportComponent extends Vue {
   };
   
   async handleSuccess(data): Promise<any> {
-    await this.slideService.replaceAll(Object.values(data));
+    const slides: Slide[] = Object.values(data);
+    const sortedSlides: Slide[] = slides.sort((prev: Slide, next: Slide) => {
+      return prev.order > next.order ? 1 : -1;
+    });
+    await this.slideService.replaceAll(sortedSlides);
     await this.$store.dispatch('manageSlides/pull');
   };
 };
