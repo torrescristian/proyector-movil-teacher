@@ -2,8 +2,8 @@
   <main class="display">
     <div class="display__text">
       <span>
-        <strong>Título:</strong> {{ title }}<br/>
-        <strong>Descripción:</strong> {{ description }}
+        <strong>Título:</strong> {{ slides[imageIndex].title }}<br/>
+        <strong>Descripción:</strong> {{ slides[imageIndex].description }}
       </span>
       <span><strong>Filmina:</strong> {{ imageIndex + 1 }} de {{ slides.length }}</span>
     </div>
@@ -32,31 +32,30 @@ import { Slide } from '../../interfaces/slide.interface';
 @Component
 export default class DisplayComponent extends Vue {
   io: any = null;
-  imageName: string = '';
-  title: string = '';
-  description: string = '';
-
+  interval: number;
+  
   constructor() {
     super();
     this.io = SocketIO();
-    setInterval(() => {
+  };
+  
+  mounted() {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+    this.interval = setInterval(() => {
       this.emit();
-    }, 1000);    
-  };
-  
-  // watchers
-  @Watch('imageIndex')
-  handleChangeImageIndex(val: number) {
-    this.imageName = this.slides[val].image;
-    this.title = this.slides[val].title;
-    this.description = this.slides[val].description;
-  };
-  
+    }, 1000);
+  }
+
+  beforeDestroy() {
+    clearInterval(this.interval);
+  }
+
+  // watchers  
   @Watch('slides')
   handleChangeSlides(val: Slide[]) {
-    this.imageName = val[this.imageIndex].image;
-    this.title = val[this.imageIndex].title;
-    this.description = val[this.imageIndex].description;
+    this.imageIndex = 0;
   };
 
   // computed properties
@@ -81,7 +80,7 @@ export default class DisplayComponent extends Vue {
 
   getImgPath() {
     return this.slides.length
-      ? `/api/slide/${this.imageName}`
+      ? `/api/slide/${this.slides[this.imageIndex].image}`
       : 'default.gif';
   };
 
@@ -100,7 +99,7 @@ export default class DisplayComponent extends Vue {
 
   emit(){
     this.io.emit('client:message', {
-      imageName: this.imageName,
+      imageName: this.slides[this.imageIndex].image,
     });
   };
 
