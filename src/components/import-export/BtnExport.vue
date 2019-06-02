@@ -27,6 +27,16 @@ export default class BtnExportComponent extends Vue {
     return this.$store.getters['manageSlides/slides'];
   };
 
+  openDownloadModal(token: string): void {
+    const url: string = `http://localhost:3000/api/teacher/export?token=${token}`;
+    const a: HTMLAnchorElement = document.createElement('a');
+    a.href = url;
+    a.download = url.split('/').pop();
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
   // methods
   async handleClick(): Promise<any> {
     const token = this.loginService.getToken();
@@ -36,7 +46,7 @@ export default class BtnExportComponent extends Vue {
         Authorization: `Bearer ${token}`,
       }
     });
-    window.open(`http://localhost:3000/api/teacher/export?token=${token}`);
+    this.openDownloadModal(token);
   };
 };
 </script>
