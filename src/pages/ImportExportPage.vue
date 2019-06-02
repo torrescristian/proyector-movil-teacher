@@ -1,20 +1,29 @@
 <template>
   <div class="wrapper">
-    <div class="col">
-      <h3>Exportar el proyecto para guardar los cambios, trabajar en otro proyecto y volver a usarlo cuando se necesite.</h3>
-      <div class="col__actions">
+    <div class="export col">
+      <div class="export__text">
+        <p>
+          <strong>Exportar el proyecto para:</strong> 
+          <br> - Importar otro proyecto
+          <br> - Crear otro proyecto
+          <br> - Guardar cambios del proyecto actual
+        </p>
+      </div>
+      <div class="export__actions">
         <btn-export></btn-export>
       </div>
     </div>
-    <div class="col">
-      <h3>
+    <div class="import col">
+      <p>
         Al importar otro proyecto
-        <span class="col__text--danger">el actual se eliminará</span>.
-        <br>
-        <br>Primero debe
-        <span class="col__text--highlighted">exportarlo</span> si desea seguir usándolo en futuras ocasiones.
-      </h3>
-      <div class="col__actions">
+        <span class="import__text--danger">el actual se eliminará</span>.
+        <br/>
+        <br/>👈 Primero debe
+        <span class="import__text--highlighted">exportarlo</span>
+        <br/> 
+        <br/> si desea volver a usarlo en futuras ocasiones.
+      </p>
+      <div class="import__actions">
         <btn-import></btn-import>
       </div>
     </div>
@@ -47,13 +56,30 @@ export default class ImportViewComponent extends Vue {
   grid-template-columns: 1fr 1fr;
   grid-gap: 1rem;
   padding: 1rem;
-  text-align: center;
+  font-size: 1.5rem;
   .col {
-    display: grid;
-    grid-template-rows: 1fr 4fr;
-    grid-gap: 1rem;
     padding: 2rem;
     border: 1px solid black;
+  }
+  .export {
+    display: grid;
+    grid-template-rows: 1fr 2fr;
+    grid-gap: 1rem;
+    &__text {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    &__actions {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  .import {
+    display: grid;
+    grid-template-rows: 1fr 2fr;
+    grid-gap: 1rem;
+    text-align: center;
     &__text {
       &--highlighted {
         text-decoration: underline;
@@ -63,6 +89,7 @@ export default class ImportViewComponent extends Vue {
       }
     }
     &__actions {
+      font-size: 1rem;
       display: flex;
       justify-content: center;
     }

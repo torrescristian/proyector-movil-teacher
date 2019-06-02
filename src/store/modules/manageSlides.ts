@@ -72,8 +72,8 @@ export const manageSlides: VuexStore = {
     },
     async pull({ commit }: Context): Promise<any> {
       const slides: Slide[] = await slideService.getSlides();
-      const sortedSlides = Object.values(slides).sort((a: Slide, b: Slide) => {
-        return a.order > b.order ? 1 : -1;
+      const sortedSlides = Object.values(slides).sort((prev: Slide, next: Slide) => {
+        return prev.order > next.order ? 1 : -1;
       });
       commit('pull', { slides: sortedSlides });
     },

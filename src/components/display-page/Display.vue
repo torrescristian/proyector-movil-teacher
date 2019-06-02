@@ -1,7 +1,11 @@
 <template>
   <main class="display">
-    <div class="display__img-container">
-      <img class="display__img" :src="getImgPath()"/>
+    <div class="display__text">
+      <span>
+        <strong>Título:</strong> {{ title }}<br/>
+        <strong>Descripción:</strong> {{ description }}
+      </span>
+      <span><strong>Filmina:</strong> {{ imageIndex + 1 }} de {{ slides.length }}</span>
     </div>
     <div class="display__buttons">
       <v-btn @click="handleClickPrev" color="primary">
@@ -13,6 +17,9 @@
         <v-icon>navigate_next</v-icon>
       </v-btn>
     </div>
+    <div class="display__img-container">
+      <img class="display__img" :src="getImgPath()"/>
+    </div>
   </main>
 </template>
 
@@ -20,23 +27,18 @@
 import cloneDeep from 'lodash.clonedeep';
 import SocketIO from 'socket.io-client';
 import { Watch, Vue, Component } from 'vue-property-decorator';
+import { Slide } from '../../interfaces/slide.interface';
 
 @Component
 export default class DisplayComponent extends Vue {
   io: any = null;
   imageName: string = '';
+  title: string = '';
+  description: string = '';
 
   constructor() {
     super();
     this.io = SocketIO();
-    window.addEventListener('keyup', (event) => {
-      const key = event.key;
-      if (key === 'ArrowRight') {
-        this.handleClickNext();
-      } else if (key === 'ArrowLeft') {
-        this.handleClickPrev();
-      }
-    });
     setInterval(() => {
       this.emit();
     }, 1000);    
@@ -44,21 +46,25 @@ export default class DisplayComponent extends Vue {
   
   // watchers
   @Watch('imageIndex')
-  handleChangeImageIndex(val, oldVal) {
+  handleChangeImageIndex(val: number) {
     this.imageName = this.slides[val].image;
+    this.title = this.slides[val].title;
+    this.description = this.slides[val].description;
   };
   
   @Watch('slides')
-  handleChangeSlides(val, oldVal) {
+  handleChangeSlides(val: Slide[]) {
     this.imageName = val[this.imageIndex].image;
+    this.title = val[this.imageIndex].title;
+    this.description = val[this.imageIndex].description;
   };
 
   // computed properties
-  get slides() {
+  get slides(): Slide[] {
     return this.$store.getters['manageSlides/slides'];
   };
   
-  get imageIndex() {
+  get imageIndex(): number {
     return this.$store.getters['manageSlides/displayedImageIndex'];
   };
 
@@ -105,10 +111,16 @@ export default class DisplayComponent extends Vue {
 .display {
   display: grid;
   grid-template-areas: 
-    "display"
-    "buttons";
+    "text"
+    "buttons"
+    "display";
+  &__text {
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.5rem;
+  }
   &__img {
-    height: 70vh;
+    height: 60vh;
     &-container { 
       grid-area: "display";
       display: flex;

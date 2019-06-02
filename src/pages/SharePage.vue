@@ -4,13 +4,15 @@
       <img src="/api/qr">
     </div>
     <div class="share__text">
-      <p>Si el teléfono del alumno no cuenta con lector de QR puede ingresar a la siguiente página web:</p>
+      <h2>Si el teléfono del alumno no cuenta con lector de QR puede ingresar a la siguiente página web:</h2>
       <br/>
-      <h2>{{ shareUrl }}</h2>
+      <h2 class="share__text--highlighted share__text--increased">
+          {{ shareUrl }}
+      </h2>
       <br/>
       <h3>
-        <v-alert type="warning" :value="true">
-          IMPORTANTE: Debe estar en la misma red wifi esta computadora y el teléfono del alumno.
+        <v-alert class="share__text--increased" type="warning" :value="true">
+          IMPORTANTE: Esta computadora y el teléfono del alumno deben de estar en la misma red WiFi.
         </v-alert>
       </h3>  
     </div>
@@ -51,6 +53,7 @@ export default class SharePageComponent extends Vue {
     'image'
     'text';
   text-align: center;
+  margin: 1rem 8rem;
   &__image {
     grid-area: image;
     display: flex;
@@ -58,6 +61,12 @@ export default class SharePageComponent extends Vue {
   }
   &__text {
     grid-area: text;
+    &--highlighted {
+      color: #5d8aa8;
+    }
+    &--increased {
+      font-size: 1.5rem;
+    }
   }
 }
 </style>
