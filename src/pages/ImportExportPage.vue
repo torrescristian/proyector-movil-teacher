@@ -46,6 +46,7 @@ export default class ImportViewComponent extends Vue {
     this.$store.dispatch('template/setTitle', {
       title: 'Importar / Exportar Proyecto',
     });
+    this.$store.dispatch('manageSlides/pull');
   };
 };
 </script>
