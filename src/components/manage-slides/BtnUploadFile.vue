@@ -24,9 +24,14 @@ export default class BtnUploadFileComponent extends Vue {
     this.slideService = new SlideService();
   };
   
-  async uploadFile(event): Promise<any> {
-    await this.slideService.insertSlide(event);
-    await this.$store.dispatch('manageSlides/pull');
+  uploadFile(event): void {
+    this.slideService.insertSlide(event)
+      .then(() => {
+        this.$store.dispatch('manageSlides/pull');
+      })
+      .catch(() => {
+        this.uploadFile(event);
+      });
   };
   
   add(): void {

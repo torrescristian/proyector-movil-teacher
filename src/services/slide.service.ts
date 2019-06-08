@@ -20,6 +20,12 @@ export class SlideService {
 
   async insertSlide(event): Promise<any> {
     const filename: string = await this.uploadSlide(event);
+    if (!filename) {
+      return new Promise((resolve, reject) => {
+        reject();
+      });
+    }
+
     return this.dbService.set(filename, {
       title: '',
       description: '',
