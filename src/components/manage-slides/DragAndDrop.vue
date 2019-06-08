@@ -7,8 +7,8 @@
           <img :src="'/api/slide/' + slide.image">
         </v-list-tile-avatar>
         <v-list-tile-content>
-          <v-list-tile-title v-html="slide.title"></v-list-tile-title>
-          <v-list-tile-sub-title v-html="slide.description"></v-list-tile-sub-title>
+          <v-list-tile-title>{{ `${slideFixedIndex(index)} ➡ ${slide.title}` }}</v-list-tile-title>
+          <v-list-tile-sub-title>{{ slide.description }}</v-list-tile-sub-title>
         </v-list-tile-content>
         <v-spacer></v-spacer>
         <btn-delete-item :slide="slide"></btn-delete-item>
@@ -34,12 +34,16 @@ export default class DragAndDropComponent extends Vue {
   get slides(): Slide[] {
     return this.$store.getters['manageSlides/slides'];
   };
-  
+
   set slides(newValues: Slide[]) {
     this.$store.dispatch('manageSlides/set', {
       slides: newValues,
     });
   };
+  
+  slideFixedIndex(index: number): string {
+    return String(index + 1).padStart(2, '0');
+  }
   
   async handleClickSlide(slide: Slide): Promise<any> {
     await this.$store.dispatch('manageSlides/setActiveSlide', {
