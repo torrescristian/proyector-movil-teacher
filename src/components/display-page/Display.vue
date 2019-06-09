@@ -46,11 +46,13 @@ export default class DisplayComponent extends Vue {
     this.interval = setInterval(() => {
       this.emit();
     }, 1000);
+    window.addEventListener('keyup', this.handleEventListener);
   }
 
   beforeDestroy() {
     this.socket.close();
     clearInterval(this.interval);
+    window.removeEventListener('keyup', this.handleEventListener);
   }
 
   // watchers  
@@ -75,19 +77,10 @@ export default class DisplayComponent extends Vue {
   };
 
   // methods
-  mod(n, m) {
-    return ((n % m) + m) % m;
-  };
-
   getImgPath() {
     return this.slides.length
       ? `/api/slide/${this.slides[this.imageIndex].image}`
       : 'default.gif';
-  };
-
-  changeImageIndexBy(delta) {
-    this.imageIndex =  this.mod(this.imageIndex + delta, this.slides.length);
-    this.emit();
   };
 
   async handleClickNext() {
@@ -98,10 +91,29 @@ export default class DisplayComponent extends Vue {
     this.changeImageIndexBy(-1);
   };
 
-  emit(){
+  // private methods
+  private mod(n, m) {
+    return ((n % m) + m) % m;
+  };
+
+  private changeImageIndexBy(delta) {
+    this.imageIndex =  this.mod(this.imageIndex + delta, this.slides.length);
+    this.emit();
+  };
+
+  private emit(){
     this.socket.emit('client:message', {
       imageName: this.slides[this.imageIndex].image,
     });
+  };
+
+  private handleEventListener(event) {
+    const key = event.key;
+    if (key === 'ArrowRight') {
+      this.handleClickNext();
+    } else if (key === 'ArrowLeft') {
+      this.handleClickPrev();
+    }
   };
 
 };
