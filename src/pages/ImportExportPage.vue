@@ -6,7 +6,7 @@
           <strong>Exportar el proyecto para:</strong> 
           <br> - Importar otro proyecto
           <br> - Crear otro proyecto
-          <br> - Guardar cambios del proyecto actual
+          <br> - Exportar cambios del proyecto actual
         </p>
       </div>
       <div class="export__actions">
@@ -18,7 +18,7 @@
         Al importar otro proyecto
         <span class="import__text--danger">el actual se eliminará</span>.
         <br/>
-        <br/>👈 Primero debe
+        <br/>👈 Primero debería
         <span class="import__text--highlighted">exportarlo</span>
         <br/> 
         <br/> si desea volver a usarlo en futuras ocasiones.
