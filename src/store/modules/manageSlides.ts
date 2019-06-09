@@ -1,63 +1,72 @@
 import cloneDeep from 'lodash.clonedeep';
+import { Module } from 'vuex';
 import { SlideService } from '../../services/slide.service';
 import { Slide } from '../../interfaces/slide.interface';
-import { VuexStore } from '../../interfaces/vuex-store.interface';
-import { ManageSlideState } from '../../interfaces/manage-slide-state.interface';
+import { RootState } from '../../interfaces/root-state.interface';
 
 const slideService = new SlideService();
+interface ManageSlideState {
+  slides: Slide[];
+  activeSlide: Slide;
+  displayedImageIndex: number;
+};
 
-interface Context {
-  getters: ManageSlideState, 
-  dispatch: Function,
-  commit: Function,
+interface ManageSlidePayload {
+  slide?: Slide,
+  slides?: Slide[],
+  index?: number,
 }
 
-export const manageSlides: VuexStore = {
+export const ManageSlidesModule: Module<ManageSlideState, RootState> = {
   namespaced: true,
+  
   state: {
     slides: [],
     activeSlide: {} as Slide,
     displayedImageIndex: 0,
   },
+  
   getters: {
-    displayedImageIndex(state: ManageSlideState): number {
+    displayedImageIndex(state): number {
       return state.displayedImageIndex;
     },
-    slides(state: ManageSlideState): Slide[] {
+    slides(state): Slide[] {
       return state.slides;
     },
-    activeSlide(state: ManageSlideState): Slide {
+    activeSlide(state): Slide {
       return state.activeSlide;
     },
   },
+
   mutations: {
-    set(state: ManageSlideState, { slides }) {
+    set(state: ManageSlideState, { slides }: ManageSlidePayload) {
       state.slides = slides;
     },
-    setActiveSlide(state: ManageSlideState, { slide }) {
+    setActiveSlide(state: ManageSlideState, { slide }: ManageSlidePayload) {
       state.activeSlide = cloneDeep(slide);
     },
-    setDisplayedImageIndex(state: ManageSlideState, { index }) {
+    setDisplayedImageIndex(state: ManageSlideState, { index }: ManageSlidePayload) {
       state.displayedImageIndex = index;
     },
-    pull(state: ManageSlideState, { slides }) {
+    pull(state: ManageSlideState, { slides }: ManageSlidePayload) {
       state.slides = slides;
       if (state.slides.length > 0) {
         state.activeSlide = cloneDeep(slides[0]);
       }
     },
   },
+
   actions: {
-    set({ commit }: Context, payload): void {
+    set({ commit }, payload: ManageSlidePayload): void {
       commit('set', payload);
     },
-    setActiveSlide({ commit }: Context, payload): void {
+    setActiveSlide({ commit }, payload: ManageSlidePayload): void {
       commit('setActiveSlide', payload);
     },
-    setDisplayedImageIndex({ commit }: Context, payload): void {
+    setDisplayedImageIndex({ commit }, payload: ManageSlidePayload): void {
       commit('setDisplayedImageIndex', payload);
     },
-    async overrideActiveSlide({ getters, dispatch }: Context): Promise<any> {
+    async overrideActiveSlide({ getters, dispatch }): Promise<any> {
       const { title, description, image } = getters.activeSlide;
       const [slide] = getters.slides.filter((s) => s.image === image);
       if (image && (await slideService.get(image))) {
@@ -70,20 +79,21 @@ export const manageSlides: VuexStore = {
       }
       dispatch('pull');
     },
-    async pull({ commit }: Context): Promise<any> {
+    async pull({ commit }): Promise<any> {
       const slides: Slide[] = await slideService.getSlides();
       const sortedSlides = Object.values(slides).sort((prev: Slide, next: Slide) => {
         return prev.order > next.order ? 1 : -1;
       });
       commit('pull', { slides: sortedSlides });
     },
-    async delete({ dispatch }: Context, { slide }: { slide: Slide }): Promise<any> {
+    async delete({ dispatch }, { slide }: ManageSlidePayload): Promise<any> {
       await slideService.remove(slide);
       await dispatch('pull');
     },
-    async flush({ getters, dispatch }: Context): Promise<any> {
+    async flush({ getters, dispatch }): Promise<any> {
       await slideService.replaceAll(getters.slides);
       await dispatch('pull');
     },
   },
+
 };
