@@ -2,8 +2,8 @@
   <main class="display">
     <div class="display__text">
       <span>
-        <strong>Título:</strong> {{ slides[imageIndex].title }}<br/>
-        <strong>Descripción:</strong> {{ slides[imageIndex].description }}
+        <strong>Título:</strong> {{ slides[imageIndex] && slides[imageIndex].title }}<br/>
+        <strong>Descripción:</strong> {{ slides[imageIndex] && slides[imageIndex].description }}
       </span>
       <span><strong>Filmina:</strong> {{ imageIndex + 1 }} de {{ slides.length }}</span>
     </div>
@@ -25,18 +25,18 @@
 
 <script lang="ts">
 import cloneDeep from 'lodash.clonedeep';
-import SocketIO from 'socket.io-client';
+import io from 'socket.io-client';
 import { Watch, Vue, Component } from 'vue-property-decorator';
 import { Slide } from '../../interfaces/slide.interface';
 
 @Component
 export default class DisplayComponent extends Vue {
-  io: any = null;
+  socket: SocketIOClient.Socket = null;
   interval: number;
   
   constructor() {
     super();
-    this.io = SocketIO();
+    this.socket = io();
   };
   
   mounted() {
@@ -49,6 +49,7 @@ export default class DisplayComponent extends Vue {
   }
 
   beforeDestroy() {
+    this.socket.close();
     clearInterval(this.interval);
   }
 
@@ -98,7 +99,7 @@ export default class DisplayComponent extends Vue {
   };
 
   emit(){
-    this.io.emit('client:message', {
+    this.socket.emit('client:message', {
       imageName: this.slides[this.imageIndex].image,
     });
   };
