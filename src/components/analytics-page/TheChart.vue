@@ -1,5 +1,12 @@
 <template>
-  <canvas ref="canvas" class="canvas"></canvas>
+  <main class="chart">
+    <div class="chart__text" v-show="maxAmountOfStudents === 0">
+      Aún no se ha conectado ningún alumno
+    </div>
+    <div v-show="maxAmountOfStudents > 0">
+      <canvas ref="canvas" class="chart__canvas"></canvas>
+    </div>
+  </main>
 </template>
 
 <script lang="ts">
@@ -56,8 +63,13 @@ export default class AnalyticsComponent extends Vue {
 </script>
 
 <style lang="scss" scoped>
-  canvas {
+.chart {
+  &__text {
+    margin-top: 40vh;
+  }
+  &__canvas {
     width: 80vw;
     height: 40vh;
   }
+}
 </style>
