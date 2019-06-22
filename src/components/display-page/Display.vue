@@ -18,7 +18,7 @@
       </v-btn>
     </div>
     <div class="display__img-container">
-      <img class="display__img" :src="getImgPath()"/>
+      <img class="display__img" :src="getImgPath()" @click="requestFullscreen"/>
     </div>
   </main>
 </template>
@@ -115,6 +115,15 @@ export default class DisplayComponent extends Vue {
       this.handleClickPrev();
     }
   };
+
+  private requestFullscreen(event) {
+    const imgElem: HTMLImageElement = event.target;
+    imgElem.requestFullscreen = imgElem.requestFullscreen
+    // @ts-ignore
+    || imgElem.webkitRequestFullscreen
+
+    imgElem.requestFullscreen();
+  }
 
 };
 </script>
