@@ -109,9 +109,9 @@ export default class DisplayComponent extends Vue {
 
   private handleEventListener(event) {
     const key = event.key;
-    if (key === 'ArrowRight') {
+    if (['ArrowRight', 'PageDown'].includes(key)) {
       this.handleClickNext();
-    } else if (key === 'ArrowLeft') {
+    } else if (['ArrowLeft', 'PageUp'].includes(key)) {
       this.handleClickPrev();
     }
   };
