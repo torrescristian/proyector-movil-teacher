@@ -1,12 +1,12 @@
 <template>
-  <v-container class="manage-slides">
+  <main class="manage-slides">
     <div class="manage-slides__display">
       <display></display>
     </div>
     <div class="manage-slides__list">
       <display-list></display-list>
     </div>
-  </v-container>
+  </main>
 </template>
 
 <script lang="ts">
@@ -27,7 +27,8 @@ export default class ManageSlidesComponent extends Vue {
 };
 </script>
 
-<style lang="scss">
+
+<style lang="scss" scoped>
 .manage-slides {
   display: grid;
   grid-gap: 1rem;
