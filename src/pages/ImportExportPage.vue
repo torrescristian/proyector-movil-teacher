@@ -14,18 +14,18 @@
       </div>
     </div>
     <div class="import col">
+      <div class="import__actions">
+        <btn-import></btn-import>
+      </div>
       <p>
-        Al importar otro proyecto
-        <span class="import__text--danger">el actual se eliminará</span>.
+        <span class="import__text--danger">CUIDADO:</span> Al importar otro proyecto
+        el actual <span class="import__text--danger">se eliminará</span>.
         <br/>
         <br/>👈 Primero debería
         <span class="import__text--highlighted">exportarlo</span>
         <br/> 
         <br/> si desea volver a usarlo en futuras ocasiones.
       </p>
-      <div class="import__actions">
-        <btn-import></btn-import>
-      </div>
     </div>
   </div>
 </template>
@@ -63,9 +63,6 @@ export default class ImportViewComponent extends Vue {
     border: 1px solid black;
   }
   .export {
-    display: grid;
-    grid-template-rows: 1fr 2fr;
-    grid-gap: 1rem;
     &__text {
       display: flex;
       justify-content: center;
@@ -77,9 +74,6 @@ export default class ImportViewComponent extends Vue {
     }
   }
   .import {
-    display: grid;
-    grid-template-rows: 1fr 2fr;
-    grid-gap: 1rem;
     text-align: center;
     &__text {
       &--highlighted {
